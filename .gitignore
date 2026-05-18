@@ -1,0 +1,7 @@
+*.env
+.env
+*.envrc
+.envrc
+node_modules/
+dist/
+build/
