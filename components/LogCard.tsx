@@ -29,7 +29,7 @@ export default function LogCard({ log, previewing, detailing, onPreview, onDetai
         <button
           type="button"
           className={detailing ? "see-less" : "see-more"}
-          onClick={(e) => { e.stopPropagation(); detailing ? onDetail(null) : onDetail(log); }}
+          onClick={(e) => { e.stopPropagation(); if (detailing) { onDetail(null); } else { onDetail(log); } }}
         >
           {detailing ? "see less" : "...see more"}
         </button>
