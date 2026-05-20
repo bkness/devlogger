@@ -40,6 +40,12 @@ h1 {
   margin-bottom: 1rem;
   color: var(--accent);
   text-shadow: #00ff88 0px 0px 10px, #00ff88 0px 0px 10px, #00ff88 0px 0px 10px;
+  animation: fadeInTitle 0.8s ease forwards;
+}
+
+@keyframes fadeInTitle {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 h2 {
