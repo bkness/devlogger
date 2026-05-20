@@ -100,6 +100,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
         <div id="detailPanel" className="flex-1 p-4 flex flex-col gap-3">
           {!detailLog && (
             <div id="idlePanel">
+              <img src="/images/devlogger-logo.png" alt="Dev Logger" style={{ width: "200px", opacity: 0.8 }} />
               <p id="idleWatermark">DEVFORGE</p>
               <p id="idleSubtitle">DEV LOGGER</p>
               <p id="idleHint">select a log to preview</p>
