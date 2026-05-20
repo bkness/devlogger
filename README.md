@@ -1,3 +1,5 @@
+![Devlogger Banner](/public/images/devlogger-banner.png)
+
 # Dev Logger
 
 A full-stack developer logging tool for capturing notes, progress, and breakthroughs as you build. Create, update, and delete logs with a clean grid UI backed by a persistent Postgres database.
