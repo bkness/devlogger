@@ -1,8 +1,0 @@
-POSTGRES_USER="brandon"
-POSTGRES_PASSWORD="password"
-POSTGRES_DB="db"
-
-PGADMIN_DEFAULT_EMAIL="kbrandon863@gmail.com"
-PGADMIN_DEFAULT_PASSWORD="password"
-
-
