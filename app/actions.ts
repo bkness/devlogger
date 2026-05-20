@@ -1,6 +1,6 @@
 "use server";
 
-import { unstable_updateTag as updateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { prisma } from "@/lib/db";
 
 export async function createLog(title: string, content: string) {

@@ -1,4 +1,4 @@
-import { unstable_cacheTag as cacheTag } from "next/cache";
+import { cacheTag } from "next/cache";
 import { prisma } from "@/lib/db";
 
 export async function getLogs() {
