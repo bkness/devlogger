@@ -10,9 +10,10 @@ interface LogFormProps {
   onClear: () => void;
   detailLog: Log | null;
   onDetailClear: () => void;
+  handleToast: (msg: string) => void;
 }
 
-export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear }: LogFormProps) {
+export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear, handleToast }: LogFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -22,11 +23,14 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
-    if (!title.trim()) { alert("Please fill in the title"); return; }
-    if (!content.trim()) { alert("Please fill in the content"); return; }
+    if (!title.trim()) { handleToast("Please fill in the title ❌"); return; }
+    if (!content.trim()) { handleToast("Please fill in the content ❌"); return; }
+    if (title.length > 30) { handleToast("Title must be under 30 characters ❌"); return; }
+    if (content.length > 200) { handleToast("Content must be under 200 characters ❌"); return; }
     await createLog(title, content);
     setTitle("");
     setContent("");
+    handleToast("Log created successfully ✅");
   }
 
   function handleEditClick() {
@@ -42,6 +46,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     setIsEditing(false);
     onDetailClear();
     onClear();
+    handleToast("Log updated successfully ✅");
   }
 
   async function handleDelete() {
@@ -49,10 +54,12 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     await deleteLog(detailLog.id);
     onDetailClear();
     onClear();
+    handleToast("Log deleted successfully ✅");
   }
 
   function handleCancelEdit() {
     setIsEditing(false);
+    handleToast("Edit cancelled ❌");
   }
 
   return (

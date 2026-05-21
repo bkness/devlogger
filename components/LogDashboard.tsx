@@ -8,6 +8,14 @@ import LogCard from "./LogCard";
 export default function LogDashboard({ logs }: { logs: Log[] }) {
   const [selectedLog, setSelectedLog] = useState<Log | null>(null);
   const [detailLog, setDetailLog] = useState<Log | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  const [toastKey, setToastKey] = useState(0);
+
+  function handleToast(msg: string) {
+    setMessage(msg);
+    setToastKey((k) => k + 1);
+    setTimeout(() => setMessage(null), 3000);
+  }
 
   function handleDetail(log: Log | null) {
     setDetailLog(log);
@@ -21,7 +29,13 @@ export default function LogDashboard({ logs }: { logs: Log[] }) {
         onClear={() => setSelectedLog(null)}
         detailLog={detailLog}
         onDetailClear={() => setDetailLog(null)}
+        handleToast={handleToast}
       />
+      {message && (
+        <div key={toastKey} className="toast">
+          {message}
+        </div>
+      )}
       {logs.length === 0 ? (
         <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">
           <p className="panel-label" style={{ fontSize: "1rem" }}>// no logs found</p>

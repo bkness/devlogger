@@ -373,3 +373,28 @@ h2, .text {
   50%  { opacity: 0.8; }
   100% { opacity: 0.4; }
 }
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(5, 13, 20, 0.95);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  color: var(--text);
+  font-family: var(--font-jet), var(--font-tech), Helvetica;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 10px 18px;
+  border-radius: 3px;
+  min-width: 240px;
+  z-index: 9999;
+  animation: toastSlide 3s ease forwards;
+}
+
+@keyframes toastSlide {
+  0%   { transform: translateX(40px); opacity: 0; }
+  12%  { transform: translateX(0);    opacity: 1; }
+  80%  { transform: translateX(0);    opacity: 1; }
+  100% { transform: translateX(40px); opacity: 0; }
+}
