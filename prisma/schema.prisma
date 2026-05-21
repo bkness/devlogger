@@ -12,11 +12,22 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id         String   @id @default(uuid())
+  logs       Log[]
+  name       String   @unique
+  email      String   @unique
+  settings   Json     @default("{}")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
 model Log {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   title     String
   content   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   userId    String?
+  user      User?     @relation(fields: [userId], references: [id])
 }
