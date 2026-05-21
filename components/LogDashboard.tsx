@@ -38,7 +38,7 @@ export default function LogDashboard({ logs }: { logs: Log[] }) {
       )}
       {logs.length === 0 ? (
         <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">
-          <p className="panel-label" style={{ fontSize: "1rem" }}>// no logs found</p>
+          <p className="panel-label" style={{ fontSize: "1rem" }}>{"// no logs found"}</p>
           <p className="preview-empty" style={{ fontSize: "0.9rem" }}>start typing above to create your first entry</p>
         </div>
       ) : (
