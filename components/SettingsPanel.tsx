@@ -1,16 +1,18 @@
 'use client';
 import { useEffect } from "react";
-import { ToastTheme } from "@/lib/types";
+import { ToastTheme, AppThemeType } from "@/lib/types";
 
 type SettingsPanelProps = {
     isOpen: boolean;
     onClose: () => void;
     toastTheme: ToastTheme;
     onToastThemeChange: (theme: ToastTheme) => void;
+    appTheme: AppThemeType;
+    onAppThemeChange: (theme: AppThemeType) => void;
 };
 
 
-export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange }: SettingsPanelProps) {
+export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange, appTheme, onAppThemeChange }: SettingsPanelProps) {
 
     useEffect(() => {
         if (!isOpen) return;
@@ -23,10 +25,16 @@ export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange 
 
     if (!isOpen) return null;
 
-    const themes: { key: ToastTheme; label: string }[] = [
+    const toastThemes: { key: ToastTheme; label: string }[] = [
         { key: "A", label: "Terminal Signal" },
         { key: "B", label: "HUD Panel" },
         { key: "C", label: "Minimal Inline" },
+    ];
+
+    const appThemes: { key: AppThemeType; label: string }[] = [
+        { key: "cyber", label: "Cyber" },
+        { key: "terminal", label: "Terminal" },
+        { key: "military", label: "Military" },
     ];
 
     return (
@@ -41,7 +49,7 @@ export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange 
                 <div className="settings-section">
                     <p className="settings-section-label">TOAST THEME</p>
                     <div className="settings-options">
-                        {themes.map(({ key, label }) => (
+                        {toastThemes.map(({ key, label }) => (
                             <button
                                 key={key}
                                 type="button"
@@ -49,6 +57,22 @@ export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange 
                                 onClick={() => onToastThemeChange(key)}
                             >
                                 <span className="settings-option-key">{key}</span>
+                                <span className="settings-option-label">{label}</span>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+                <div className="settings-section">
+                    <p className="settings-section-label">APP THEME</p>
+                    <div className="settings-options">
+                        {appThemes.map(({ key, label }) => (
+                            <button
+                                key={key}
+                                type="button"
+                                className={`settings-option${appTheme === key ? " active" : ""}`}
+                                onClick={() => onAppThemeChange(key)}
+                            >
+                                <span className="settings-option-key">{key[0].toUpperCase()}</span>
                                 <span className="settings-option-label">{label}</span>
                             </button>
                         ))}

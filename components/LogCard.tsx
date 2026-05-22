@@ -12,10 +12,10 @@ interface LogCardProps {
 
 export default function LogCard({ log, previewing, detailing, onPreview, onDetail }: LogCardProps) {
   const activeStyle = detailing
-    ? { borderColor: "var(--primary)", boxShadow: "0 0 20px rgba(0,229,255,0.3)" }
+    ? { borderColor: "var(--primary)", boxShadow: "0 0 20px var(--glow)" }
     : previewing
-    ? { borderColor: "rgba(0,229,255,0.4)" }
-    : {};
+      ? { borderColor: "var(--border2)" }
+      : {};
 
   return (
     <li

@@ -1,15 +1,17 @@
 'use client';
 import { SettingsPanel } from "./SettingsPanel";
 import { useState, useEffect } from "react";
-import { Log, ToastTheme } from "@/lib/types";
+import { Log, ToastTheme, AppThemeType } from "@/lib/types";
 
 type NavbarProps = {
     logs: Log[];
     toastTheme: ToastTheme;
     onToastThemeChange: (theme: ToastTheme) => void;
+    appTheme: AppThemeType;
+    onAppThemeChange: (theme: AppThemeType) => void;
 };
 
-export function Navbar({ logs, toastTheme, onToastThemeChange }: NavbarProps) {
+export function Navbar({ logs, toastTheme, onToastThemeChange, appTheme, onAppThemeChange }: NavbarProps) {
     const [settingsOpen, setSettingsOpen] = useState(false);
     const [time, setTime] = useState("--:--:--");
 
@@ -83,6 +85,8 @@ export function Navbar({ logs, toastTheme, onToastThemeChange }: NavbarProps) {
                 onClose={() => setSettingsOpen(false)}
                 toastTheme={toastTheme}
                 onToastThemeChange={onToastThemeChange}
+                appTheme={appTheme}
+                onAppThemeChange={onAppThemeChange}
             />
         </nav>
     )
