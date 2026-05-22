@@ -14,7 +14,7 @@ export default function DashboardShell({ logs }: DashboardShellProps) {
 
   return (
     <>
-      <Navbar toastTheme={toastTheme} onToastThemeChange={setToastTheme} />
+      <Navbar logs={logs} toastTheme={toastTheme} onToastThemeChange={setToastTheme} />
       <LogDashboard logs={logs} toastTheme={toastTheme} />
     </>
   );
