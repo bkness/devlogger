@@ -1,8 +1,14 @@
 'use client';
 import { SettingsPanel } from "./SettingsPanel";
 import { useState, useEffect } from "react";
+import { ToastTheme } from "@/lib/types";
 
-export function Navbar() {
+type NavbarProps = {
+    toastTheme: ToastTheme;
+    onToastThemeChange: (theme: ToastTheme) => void;
+};
+
+export function Navbar({ toastTheme, onToastThemeChange }: NavbarProps) {
     const [settingsOpen, setSettingsOpen] = useState(false);
     const [time, setTime] = useState("--:--:--");
 
@@ -63,7 +69,12 @@ export function Navbar() {
                 <div className="nav-time">{time}</div>
 
             </div>
-            <SettingsPanel isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
+            <SettingsPanel
+                isOpen={settingsOpen}
+                onClose={() => setSettingsOpen(false)}
+                toastTheme={toastTheme}
+                onToastThemeChange={onToastThemeChange}
+            />
         </nav>
     )
 }
