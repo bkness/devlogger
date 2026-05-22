@@ -68,44 +68,50 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
 
       {/* Left col — create form + session preview */}
       <div className="w-full lg:w-2/3 lg:self-start flex flex-col gap-4">
-        <input
-          id="mainTitle"
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="panel-field p-2 rounded h-12 w-full"
-        />
-        <textarea
-          id="mainContent"
-          placeholder="What did you work on?"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="panel-field p-2 rounded w-full"
-        />
-        <button type="submit" id="addLogBtn">
-          Add Log
-        </button>
+        <div className="form-entry-panel">
+          <div className="panel-header">// New Entry</div>
+          <div className="form-entry-body">
+            <input
+              id="mainTitle"
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="panel-field p-2 rounded h-12 w-full"
+            />
+            <textarea
+              id="mainContent"
+              placeholder="What did you work on?"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="panel-field p-2 rounded w-full"
+            />
+            <button type="submit" id="addLogBtn">
+              Add Log
+            </button>
+          </div>
+        </div>
 
         {/* Session preview */}
-        <div id="formFiller" className="flex flex-col gap-3">
-          <div id="previewLabel" className="w-full rounded border px-3 py-2">
-            <p className="panel-label">SESSION PREVIEW</p>
+        <div id="formFiller">
+          <div className="panel-header">Session Preview</div>
+          <div id="formFillerBody">
+            {selectedLog ? (
+              <div id="previewContent">
+                <p className="preview-title font-bold">{selectedLog.title}</p>
+                <p className="preview-body">{selectedLog.content}</p>
+                <p className="preview-date">{new Date(selectedLog.createdAt).toLocaleDateString()}</p>
+              </div>
+            ) : (
+              <p className="preview-empty">Track what you shipped, learned, and fixed today.</p>
+            )}
           </div>
-          {selectedLog ? (
-            <div id="previewContent">
-              <p className="preview-title font-bold">{selectedLog.title}</p>
-              <p className="preview-body">{selectedLog.content}</p>
-              <p className="preview-date">{new Date(selectedLog.createdAt).toLocaleDateString()}</p>
-            </div>
-          ) : (
-            <p className="preview-empty">Track what you shipped, learned, and fixed today.</p>
-          )}
         </div>
       </div>
 
       {/* Right col — detail / inline edit / watermark */}
-      <div className="w-full lg:w-2/3 flex flex-col mb-3 gap-4" id="rightPanel">
+      <div className="w-full lg:w-2/3 flex flex-col mb-3" id="rightPanel">
+        <div className="panel-header">Log Detail</div>
         <div id="detailPanel" className="flex-1 p-4 flex flex-col gap-3">
           {!detailLog && (
             <div id="idlePanel">
