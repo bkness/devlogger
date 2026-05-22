@@ -1,16 +1,25 @@
 'use client';
 import { SettingsPanel } from "./SettingsPanel";
 import { useState, useEffect } from "react";
-import { ToastTheme } from "@/lib/types";
+import { Log, ToastTheme } from "@/lib/types";
 
 type NavbarProps = {
+    logs: Log[];
     toastTheme: ToastTheme;
     onToastThemeChange: (theme: ToastTheme) => void;
 };
 
-export function Navbar({ toastTheme, onToastThemeChange }: NavbarProps) {
+export function Navbar({ logs, toastTheme, onToastThemeChange }: NavbarProps) {
     const [settingsOpen, setSettingsOpen] = useState(false);
     const [time, setTime] = useState("--:--:--");
+
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const thisWeek = logs.filter(log => new Date(log.createdAt) >= startOfWeek).length;
+    const totalLogs = logs.length;
 
     useEffect(() => {
         function tick() {
@@ -56,12 +65,12 @@ export function Navbar({ toastTheme, onToastThemeChange }: NavbarProps) {
             </div>
             <div className="nav-right">
                 <div className="nav-stat">
-                    <div className="nav-stat-val">14</div>
+                    <div className="nav-stat-val">{totalLogs}</div>
                     <div className="nav-stat-label">Total logs</div>
                 </div>
                 <div className="nav-divider"></div>
                 <div className="nav-stat">
-                    <div className="nav-stat-val">5</div>
+                    <div className="nav-stat-val">{thisWeek}</div>
                     <div className="nav-stat-label">This week</div>
                 </div>
                 <div className="nav-divider"></div>
