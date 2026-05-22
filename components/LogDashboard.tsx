@@ -4,15 +4,25 @@ import { useState } from "react";
 import { Log } from "@/lib/types";
 import LogForm from "./LogForm";
 import LogCard from "./LogCard";
+import { ToastType } from "@/lib/types";
+import { ToastTheme } from "@/lib/types";
+import { Toast } from "./Toast";
 
-export default function LogDashboard({ logs }: { logs: Log[] }) {
+type LogDashboardProps = {
+  logs: Log[];
+  toastTheme: ToastTheme;
+};
+
+export default function LogDashboard({ logs, toastTheme }: LogDashboardProps) {
   const [selectedLog, setSelectedLog] = useState<Log | null>(null);
   const [detailLog, setDetailLog] = useState<Log | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [toastKey, setToastKey] = useState(0);
+  const [toastType, setToastType] = useState<ToastType | null>(null);
 
-  function handleToast(msg: string) {
+  function handleToast(msg: string, type: ToastType) {
     setMessage(msg);
+    setToastType(type);
     setToastKey((k) => k + 1);
     setTimeout(() => setMessage(null), 3000);
   }
@@ -31,10 +41,8 @@ export default function LogDashboard({ logs }: { logs: Log[] }) {
         onDetailClear={() => setDetailLog(null)}
         handleToast={handleToast}
       />
-      {message && (
-        <div key={toastKey} className="toast">
-          {message}
-        </div>
+      {message && toastType && (
+        <Toast key={toastKey} message={message} type={toastType} theme={toastTheme} />
       )}
       {logs.length === 0 ? (
         <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">

@@ -6,3 +6,7 @@ export type Log = {
   updatedAt: Date;
   userId: string | null;
 };
+
+export type ToastType = "success" | "error" | "warn" | "info";
+
+export type ToastTheme = "A" | "B" | "C";
