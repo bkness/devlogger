@@ -1,11 +1,14 @@
-import LogDashboard from "../components/LogDashboard";
+import LogDashboard from "@/components/LogDashboard";
+import { Navbar } from "@/components/Navbar";
 import { getLogs } from "@/lib/logs";
 
 export default async function Home() {
   const logs = await getLogs();
   return (
-    <main id="mainContent" className="max-w-10xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">Dev Logger</h1>
+  
+    <main id="mainContent" className="max-w-10xl mx-auto p-8">  
+     <Navbar /> 
+  { /* <SettingsPanel /> */}
       <LogDashboard logs={logs} />
     </main>
   )
