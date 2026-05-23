@@ -3,6 +3,7 @@ import { ToastType, AppThemeType, ToastTheme } from "@/lib/types";
 interface ToastProps {
     message: string;
     type: ToastType;
+    title?: string;
     theme?: ToastTheme;
     appTheme?: AppThemeType;
     onDismiss?: () => void;
@@ -29,7 +30,8 @@ const classMap: Record<AppThemeType, Record<ToastTheme, [string, string]>> = {
     military: { A: ["military-a", "ma"],  B: ["military-b", "mb"],  C: ["military-c", "mc"]  },
 };
 
-export function Toast({ message, type, theme = "A", appTheme = "cyber", onDismiss }: ToastProps) {
+export function Toast({ message, type, title, theme = "A", appTheme = "cyber", onDismiss }: ToastProps) {
+    const displayTitle = title ?? titleByType[type];
     const [outerClass, p] = classMap[appTheme][theme];
     const modClass = `${p}-${type}`;
 
@@ -38,7 +40,7 @@ export function Toast({ message, type, theme = "A", appTheme = "cyber", onDismis
         return (
             <div className="toast" role="status" aria-live="polite">
                 <div className={`${outerClass} ${modClass}`}>
-                    <div className="t-title">{titleByType[type]}</div>
+                    <div className="t-title">{displayTitle}</div>
                     <div className="t-body">{message}</div>
                     <div className="t-bar" />
                 </div>
@@ -49,8 +51,8 @@ export function Toast({ message, type, theme = "A", appTheme = "cyber", onDismis
     // Theme B — HUD dot + code + corner brackets
     if (theme === "B") {
         const titleDisplay = appTheme === "military"
-            ? titleByType[type]
-            : titleByType[type].toUpperCase();
+            ? displayTitle
+            : displayTitle.toUpperCase();
         return (
             <div className="toast" role="status" aria-live="polite">
                 <div className={`${outerClass} ${modClass}`}>
@@ -72,7 +74,7 @@ export function Toast({ message, type, theme = "A", appTheme = "cyber", onDismis
             <div className={`${outerClass} ${modClass}`}>
                 <div className={`${p}-bar`} />
                 <div className={`${p}-text`}>
-                    <div className="t-title">{titleByType[type]}</div>
+                    <div className="t-title">{displayTitle}</div>
                     <div className="t-body">{message}</div>
                 </div>
                 <button type="button" className={`${p}-esc`} aria-label="Dismiss" onClick={onDismiss}>ESC</button>

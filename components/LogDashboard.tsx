@@ -32,9 +32,12 @@ export default function LogDashboard({ logs, toastTheme, appTheme }: LogDashboar
     return () => document.removeEventListener("keydown", onKey);
   }, [message, toastTheme, dismissToast]);
 
-  function handleToast(msg: string, type: ToastType) {
+  const [toastTitle, setToastTitle] = useState<string | undefined>(undefined);
+
+  function handleToast(msg: string, type: ToastType, title?: string) {
     setMessage(msg);
     setToastType(type);
+    setToastTitle(title);
     setToastKey((k) => k + 1);
     setTimeout(() => setMessage(null), 3000);
   }
@@ -54,7 +57,7 @@ export default function LogDashboard({ logs, toastTheme, appTheme }: LogDashboar
         handleToast={handleToast}
       />
       {message && toastType && (
-        <Toast key={toastKey} message={message} type={toastType} theme={toastTheme} appTheme={appTheme} onDismiss={dismissToast} />
+        <Toast key={toastKey} message={message} type={toastType} title={toastTitle} theme={toastTheme} appTheme={appTheme} onDismiss={dismissToast} />
       )}
       {logs.length === 0 ? (
         <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">
