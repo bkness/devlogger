@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from "react";
-import { ToastTheme, AppThemeType } from "@/lib/types";
+import { ToastTheme, AppThemeType, NavTheme } from "@/lib/types";
 
 type SettingsPanelProps = {
     isOpen: boolean;
@@ -9,10 +9,12 @@ type SettingsPanelProps = {
     onToastThemeChange: (theme: ToastTheme) => void;
     appTheme: AppThemeType;
     onAppThemeChange: (theme: AppThemeType) => void;
+    navTheme: NavTheme;
+    onNavThemeChange: (theme: NavTheme) => void;
 };
 
 
-export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange, appTheme, onAppThemeChange }: SettingsPanelProps) {
+export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange, appTheme, onAppThemeChange, navTheme, onNavThemeChange }: SettingsPanelProps) {
 
     useEffect(() => {
         if (!isOpen) return;
@@ -35,6 +37,12 @@ export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange,
         { key: "cyber", label: "Cyber" },
         { key: "terminal", label: "Terminal" },
         { key: "military", label: "Military" },
+    ];
+
+    const navThemes: { key: NavTheme; label: string }[] = [
+        { key: "A", label: "Command Bar" },
+        { key: "B", label: "Slim Signal" },
+        { key: "C", label: "Terminal Path" },
     ];
 
     return (
@@ -73,6 +81,22 @@ export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange,
                                 onClick={() => onAppThemeChange(key)}
                             >
                                 <span className="settings-option-key">{key[0].toUpperCase()}</span>
+                                <span className="settings-option-label">{label}</span>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+                <div className="settings-section">
+                    <p className="settings-section-label">NAVBAR THEME</p>
+                    <div className="settings-options">
+                        {navThemes.map(({ key, label }) => (
+                            <button
+                                key={key}
+                                type="button"
+                                className={`settings-option${navTheme === key ? " active" : ""}`}
+                                onClick={() => onNavThemeChange(key)}
+                            >
+                                <span className="settings-option-key">{key}</span>
                                 <span className="settings-option-label">{label}</span>
                             </button>
                         ))}
