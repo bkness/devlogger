@@ -12,13 +12,13 @@ export default async function Home() {
         getLogs(session.user.id),
         prisma.user.findUnique({
             where: { id: session.user.id },
-            select: { settings: true },
+            select: { settings: true, name: true },
         }),
     ]);
 
     return (
         <main id="mainContent" className="max-w-10xl mx-auto p-8">
-            <DashboardShell logs={logs} initialSettings={user?.settings ?? {}} />
+            <DashboardShell logs={logs} initialSettings={user?.settings ?? {}} userName={user?.name ?? ""} />
         </main>
     );
 }

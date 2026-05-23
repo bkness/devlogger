@@ -31,9 +31,10 @@ function parseSettings(raw: unknown): Settings {
 type DashboardShellProps = {
     logs:            Log[];
     initialSettings: unknown;
+    userName:        string;
 };
 
-export default function DashboardShell({ logs, initialSettings }: DashboardShellProps) {
+export default function DashboardShell({ logs, initialSettings, userName }: DashboardShellProps) {
     const [{ appTheme, navTheme, toastTheme }, setSettings] = useState<Settings>(
         () => parseSettings(initialSettings),
     );
@@ -59,6 +60,7 @@ export default function DashboardShell({ logs, initialSettings }: DashboardShell
         <>
             <Navbar
                 logs={logs}
+                userName={userName}
                 toastTheme={toastTheme}
                 onToastThemeChange={setToastTheme}
                 appTheme={appTheme}

@@ -5,6 +5,7 @@ import { Log, ToastTheme, AppThemeType, NavTheme } from "@/lib/types";
 
 type NavbarProps = {
     logs: Log[];
+    userName: string;
     toastTheme: ToastTheme;
     onToastThemeChange: (theme: ToastTheme) => void;
     appTheme: AppThemeType;
@@ -13,7 +14,7 @@ type NavbarProps = {
     onNavThemeChange: (theme: NavTheme) => void;
 };
 
-export function Navbar({ logs, toastTheme, onToastThemeChange, appTheme, onAppThemeChange, navTheme, onNavThemeChange }: NavbarProps) {
+export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appTheme, onAppThemeChange, navTheme, onNavThemeChange }: NavbarProps) {
     const [settingsOpen, setSettingsOpen] = useState(false);
     const [time, setTime] = useState("--:--:--");
 
@@ -65,6 +66,7 @@ export function Navbar({ logs, toastTheme, onToastThemeChange, appTheme, onAppTh
                         <button type="button" className="nb-link" onClick={openSettings}>Settings</button>
                     </div>
                     <div className="nb-right">
+                        {userName && <span className="nb-user">// {userName}</span>}
                         <span className="nb-count"><span className="nb-count-val">{totalLogs}</span> logs</span>
                         <button type="button" className="nb-new">+ New</button>
                     </div>
@@ -96,6 +98,7 @@ export function Navbar({ logs, toastTheme, onToastThemeChange, appTheme, onAppTh
                         <button type="button" className="nc-crumb" onClick={openSettings}>~/settings</button>
                     </div>
                     <div className="nc-right">
+                        {userName && <span className="nc-user">// {userName}</span>}
                         <button type="button" className="nc-action primary">
                             <div className="nc-pulse" />
                             + New Log
@@ -145,6 +148,12 @@ export function Navbar({ logs, toastTheme, onToastThemeChange, appTheme, onAppTh
                     </button>
                 </div>
                 <div className="nav-right">
+                    {userName && (
+                        <>
+                            <div className="nav-user">// {userName}</div>
+                            <div className="nav-divider"></div>
+                        </>
+                    )}
                     <div className="nav-stat">
                         <div className="nav-stat-val">{totalLogs}</div>
                         <div className="nav-stat-label">Total logs</div>
