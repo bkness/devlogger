@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Log, AppThemeType } from "@/lib/types";
 import LogForm from "./LogForm";
 import LogCard from "./LogCard";
@@ -20,6 +20,17 @@ export default function LogDashboard({ logs, toastTheme, appTheme }: LogDashboar
   const [message, setMessage] = useState<string | null>(null);
   const [toastKey, setToastKey] = useState(0);
   const [toastType, setToastType] = useState<ToastType | null>(null);
+
+  const dismissToast = useCallback(() => setMessage(null), []);
+
+  useEffect(() => {
+    if (!message || toastTheme !== "C") return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") dismissToast();
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [message, toastTheme, dismissToast]);
 
   function handleToast(msg: string, type: ToastType) {
     setMessage(msg);
@@ -43,7 +54,7 @@ export default function LogDashboard({ logs, toastTheme, appTheme }: LogDashboar
         handleToast={handleToast}
       />
       {message && toastType && (
-        <Toast key={toastKey} message={message} type={toastType} theme={toastTheme} appTheme={appTheme} />
+        <Toast key={toastKey} message={message} type={toastType} theme={toastTheme} appTheme={appTheme} onDismiss={dismissToast} />
       )}
       {logs.length === 0 ? (
         <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">

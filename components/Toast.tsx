@@ -5,6 +5,7 @@ interface ToastProps {
     type: ToastType;
     theme?: ToastTheme;
     appTheme?: AppThemeType;
+    onDismiss?: () => void;
 }
 
 const titleByType: Record<ToastType, string> = {
@@ -28,7 +29,7 @@ const classMap: Record<AppThemeType, Record<ToastTheme, [string, string]>> = {
     military: { A: ["military-a", "ma"],  B: ["military-b", "mb"],  C: ["military-c", "mc"]  },
 };
 
-export function Toast({ message, type, theme = "A", appTheme = "cyber" }: ToastProps) {
+export function Toast({ message, type, theme = "A", appTheme = "cyber", onDismiss }: ToastProps) {
     const [outerClass, p] = classMap[appTheme][theme];
     const modClass = `${p}-${type}`;
 
@@ -74,7 +75,7 @@ export function Toast({ message, type, theme = "A", appTheme = "cyber" }: ToastP
                     <div className="t-title">{titleByType[type]}</div>
                     <div className="t-body">{message}</div>
                 </div>
-                <button type="button" className={`${p}-esc`} aria-label="Dismiss">ESC</button>
+                <button type="button" className={`${p}-esc`} aria-label="Dismiss" onClick={onDismiss}>ESC</button>
                 {appTheme === "military" && <div className={`${p}-progress`} />}
             </div>
         </div>
