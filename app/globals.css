@@ -921,6 +921,16 @@ h2, .text {
 
 .update-btn:hover { background: var(--btn-bg); filter: brightness(1.4); }
 
+.delete-confirm-label {
+  font-size: 11px;
+  font-family: monospace;
+  color: #ff6b35;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
 .delete-btn {
   font-size: 12px;
   padding: 3px 8px;

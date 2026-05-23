@@ -20,6 +20,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -52,6 +53,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
   async function handleDelete() {
     if (!detailLog) return;
     await deleteLog(detailLog.id);
+    setConfirmDelete(false);
     onDetailClear();
     onClear();
     handleToast("Log deleted successfully", "success", "Log deleted");
@@ -155,15 +157,29 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
 
         {detailLog && !isEditing && (
           <div className="flex gap-2 mb-1 p-2">
-            <button type="button" id="editBtn" className="update-btn flex-1 p-2" onClick={handleEditClick}>
-              Edit
-            </button>
-            <button type="button" id="deleteBtn" className="delete-btn flex-1 p-2" onClick={handleDelete}>
-              Delete
-            </button>
-            <button type="button" id="cancelBtn" onClick={onDetailClear}>
-              Cancel
-            </button>
+            {confirmDelete ? (
+              <>
+                <span className="delete-confirm-label">// delete?</span>
+                <button type="button" className="delete-btn flex-1 p-2" onClick={handleDelete}>
+                  Yes, delete
+                </button>
+                <button type="button" id="cancelBtn" onClick={() => setConfirmDelete(false)}>
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <>
+                <button type="button" id="editBtn" className="update-btn flex-1 p-2" onClick={handleEditClick}>
+                  Edit
+                </button>
+                <button type="button" id="deleteBtn" className="delete-btn flex-1 p-2" onClick={() => setConfirmDelete(true)}>
+                  Delete
+                </button>
+                <button type="button" id="cancelBtn" onClick={onDetailClear}>
+                  Cancel
+                </button>
+              </>
+            )}
           </div>
         )}
 
