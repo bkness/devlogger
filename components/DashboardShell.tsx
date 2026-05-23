@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Log, ToastTheme, AppThemeType, NavTheme } from "@/lib/types";
 import { Navbar } from "./Navbar";
 import LogDashboard from "./LogDashboard";
@@ -43,8 +43,10 @@ export default function DashboardShell({ logs, initialSettings, userName }: Dash
     const setNavTheme   = (navTheme: NavTheme)      => setSettings(s => ({ ...s, navTheme }));
     const setToastTheme = (toastTheme: ToastTheme)  => setSettings(s => ({ ...s, toastTheme }));
 
-    // Persist to DB on any theme change
+    // Persist to DB on any theme change (skip initial mount)
+    const mounted = useRef(false);
     useEffect(() => {
+        if (!mounted.current) { mounted.current = true; return; }
         saveSettings({ appTheme, navTheme, toastTheme });
     }, [appTheme, navTheme, toastTheme]);
 
