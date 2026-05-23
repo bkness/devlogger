@@ -25,8 +25,8 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     e.preventDefault();
     if (!title.trim()) { handleToast("Please fill in the title", "error"); return; }
     if (!content.trim()) { handleToast("Please fill in the content", "error"); return; }
-    if (title.length > 30) { handleToast("Title must be under 30 characters", "error"); return; }
-    if (content.length > 400) { handleToast("Content must be under 400 characters", "error"); return; }
+    if (title.length > 50) { handleToast("Title must be under 50 characters", "error"); return; }
+    if (content.length > 800) { handleToast("Content must be under 800 characters", "error"); return; }
     await createLog(title, content);
     setTitle("");
     setContent("");

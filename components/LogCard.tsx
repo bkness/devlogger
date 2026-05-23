@@ -19,8 +19,7 @@ export default function LogCard({ log, previewing, detailing, onPreview, onDetai
 
   return (
     <li
-      id="container"
-      className="border p-4 rounded flex flex-col gap-3"
+      className="log-card border p-4 rounded flex flex-col gap-3"
       style={{ cursor: "pointer", ...activeStyle }}
       onClick={() => onPreview(log)}
     >
@@ -33,7 +32,7 @@ export default function LogCard({ log, previewing, detailing, onPreview, onDetai
         >
           {detailing ? "see less" : "...see more"}
         </button>
-        <p id="date">{new Date(log.createdAt).toLocaleDateString()}</p>
+        <p className="log-card-date">{new Date(log.createdAt).toLocaleDateString()}</p>
       </div>
     </li>
   );
