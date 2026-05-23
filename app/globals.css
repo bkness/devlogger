@@ -998,7 +998,7 @@ h2, .text {
   gap: 8px;
 }
 
-#container {
+.log-card {
   border-color: var(--border);
   background: var(--surface);
   height: 170px;
@@ -1008,17 +1008,17 @@ h2, .text {
   margin: 10px 5px 10px 5px;
 }
 
-#container:hover {
+.log-card:hover {
   box-shadow: 0 0 25px -0.05px var(--primary);
   animation: pulse 2s ease-in-out infinite;
 }
 
-.military #container {
+.military .log-card {
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0, 61, 31, 0.06);
 }
 
-.military #container:hover {
+.military .log-card:hover {
   border-color: rgba(0, 61, 31, 0.3);
   box-shadow: 0 2px 8px rgba(0, 61, 31, 0.1);
 }
@@ -1101,7 +1101,7 @@ h2, .text {
   margin-top: auto;
 }
 
-.preview-date, .detail-date, #date {
+.preview-date, .detail-date, .log-card-date {
   text-align: right;
   font-size: 0.9rem;
   color: var(--muted);
