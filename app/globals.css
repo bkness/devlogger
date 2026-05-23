@@ -1239,7 +1239,8 @@ h2, .text {
 .toast .cc-error .t-title   { color: #ff3b5c; }
 .toast .cc-warn .t-title    { color: #ff6b35; }
 .toast .cc-info .t-title    { color: #00e5ff; }
-.toast .cc-esc { font-family: inherit; font-size: 9px; letter-spacing: 0.12em; padding: 2px 6px; border: 1px solid rgba(200,240,255,0.1); background: none; color: rgba(200,240,255,0.2); cursor: pointer; }
+.toast .cc-esc { font-family: inherit; font-size: 9px; letter-spacing: 0.12em; padding: 4px 8px; border: 1px solid rgba(200,240,255,0.25); background: none; color: rgba(200,240,255,0.45); cursor: pointer; transition: color 0.15s, border-color 0.15s; }
+.toast .cc-esc:hover { color: rgba(200,240,255,0.85); border-color: rgba(200,240,255,0.5); }
 
 /* ════════════════════════════════
    TERMINAL A — Amber Signal
@@ -1335,7 +1336,8 @@ h2, .text {
 .toast .tc2-error .t-title   { color: #ff4444; }
 .toast .tc2-warn .t-title    { color: #ffb300; }
 .toast .tc2-info .t-title    { color: rgba(255,179,0,0.7); }
-.toast .tc2-esc { font-family: inherit; font-size: 9px; letter-spacing: 0.12em; padding: 2px 6px; border: 1px solid rgba(255,179,0,0.15); background: none; color: rgba(255,179,0,0.25); cursor: pointer; }
+.toast .tc2-esc { font-family: inherit; font-size: 9px; letter-spacing: 0.12em; padding: 4px 8px; border: 1px solid rgba(255,179,0,0.3); background: none; color: rgba(255,179,0,0.5); cursor: pointer; transition: color 0.15s, border-color 0.15s; }
+.toast .tc2-esc:hover { color: rgba(255,179,0,0.9); border-color: rgba(255,179,0,0.6); }
 
 /* ════════════════════════════════
    MILITARY A — Field Report
@@ -1435,7 +1437,8 @@ h2, .text {
 .toast .mc-error .t-title   { color: #cc2200; }
 .toast .mc-warn .t-title    { color: #cc8800; }
 .toast .mc-info .t-title    { color: #003d1f; }
-.toast .mc-esc { font-family: inherit; font-size: 9px; letter-spacing: 0.12em; padding: 2px 6px; border: 1px solid rgba(0,61,31,0.15); background: none; color: rgba(0,61,31,0.3); cursor: pointer; border-radius: 1px; }
+.toast .mc-esc { font-family: inherit; font-size: 9px; letter-spacing: 0.12em; padding: 4px 8px; border: 1px solid rgba(0,61,31,0.35); background: none; color: rgba(0,61,31,0.55); cursor: pointer; border-radius: 1px; transition: color 0.15s, border-color 0.15s; }
+.toast .mc-esc:hover { color: rgba(0,61,31,0.9); border-color: rgba(0,61,31,0.6); }
 .toast .mc-progress { position: absolute; bottom: 0; left: 0; height: 2px; animation: toastProgress 3s linear forwards; }
 .toast .mc-success .mc-progress { background: #00cc44; }
 .toast .mc-error .mc-progress   { background: #cc2200; }
