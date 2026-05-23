@@ -23,7 +23,7 @@ export default function LogCard({ log, previewing, detailing, onPreview, onDetai
       style={{ cursor: "pointer", ...activeStyle }}
       onClick={() => onPreview(log)}
     >
-      <h2 className="font-bold">{log.title}</h2>
+      <h2 className="font-bold log-card-title">{log.title}</h2>
       <div className="mt-auto flex justify-between items-end">
         <button
           type="button"

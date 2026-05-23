@@ -4,7 +4,7 @@ export type Log = {
   content: string;
   createdAt: Date;
   updatedAt: Date;
-  userId: string | null;
+  userId: string;
 };
 
 export type ToastType = "success" | "error" | "warn" | "info";
