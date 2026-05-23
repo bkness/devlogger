@@ -108,6 +108,15 @@
   background: var(--surface);
   border-bottom-color: var(--border);
 }
+.military .nav-b {
+  background: var(--surface);
+}
+.military .nav-c {
+  background: var(--surface);
+}
+.military .nc-brand-block {
+  background: var(--surface2);
+}
 
 html.terminal,
 body.terminal {
@@ -387,6 +396,238 @@ body {
   font-size: 10px;
   color: var(--text-dim);
   letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════
+   NAVBAR B — Slim Signal
+════════════════════════════════ */
+.nav-b {
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  gap: 32px;
+  position: relative;
+}
+.nav-b::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--primary) 20%, var(--primary) 80%, transparent);
+  opacity: 0.3;
+}
+.nb-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.nb-logo-mark {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  border: 1px solid var(--border2);
+  padding: 3px 6px;
+  position: relative;
+}
+.nb-logo-mark::before,
+.nb-logo-mark::after {
+  content: '';
+  position: absolute;
+  width: 4px; height: 4px;
+}
+.nb-logo-mark::before { top: -2px; left: -2px; border-top: 1px solid var(--primary); border-left: 1px solid var(--primary); }
+.nb-logo-mark::after  { bottom: -2px; right: -2px; border-bottom: 1px solid var(--primary); border-right: 1px solid var(--primary); }
+.nb-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.12em;
+}
+.nb-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.nb-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+}
+.nb-link {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  padding-bottom: 2px;
+  border: none;
+  border-bottom: 1px solid transparent;
+  background: none;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.nb-link:hover { color: var(--primary); }
+.nb-link.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+.nb-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+.nb-count {
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+.nb-count-val {
+  color: var(--primary);
+  font-weight: 600;
+}
+.nb-new {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--btn);
+  border: 1px solid var(--btn-border);
+  padding: 4px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  background: var(--btn-bg);
+  transition: all 0.15s;
+}
+.nb-new:hover { box-shadow: 0 0 8px var(--btn-glow); }
+
+/* ════════════════════════════════
+   NAVBAR C — Terminal Path
+════════════════════════════════ */
+.nav-c {
+  width: 100%;
+  height: 48px;
+  background: var(--dim);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: stretch;
+}
+.nc-brand-block {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+  border-right: 1px solid var(--border);
+  background: var(--dim);
+  flex-shrink: 0;
+}
+.nc-hex {
+  width: 22px;
+  height: 22px;
+}
+.nc-brand-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+}
+.nc-path {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 0;
+  flex: 1;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  overflow: hidden;
+}
+.nc-crumb {
+  padding: 0 12px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  border: none;
+  border-right: 1px solid transparent;
+  background: none;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  transition: all 0.15s;
+}
+.nc-crumb:hover {
+  color: var(--primary);
+  background: var(--dim);
+}
+.nc-crumb.active {
+  color: var(--primary);
+  background: var(--surface);
+  border-right-color: var(--border);
+}
+.nc-crumb.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+}
+.nc-arrow {
+  color: var(--border);
+  font-size: 10px;
+  padding: 0 2px;
+  user-select: none;
+}
+.nc-right {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-left: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.nc-action {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-right: 1px solid var(--border);
+  transition: all 0.15s;
+  color: var(--muted);
+  font-family: inherit;
+  background: none;
+  border-top: none;
+  border-bottom: none;
+}
+.nc-action:last-child { border-right: none; }
+.nc-action:hover { background: var(--dim); color: var(--primary); }
+.nc-action.primary {
+  color: var(--btn);
+  background: var(--btn-bg);
+}
+.nc-action.primary:hover { box-shadow: 0 0 8px var(--btn-glow); }
+.nc-pulse {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--btn);
+  box-shadow: 0 0 6px var(--btn);
+  margin-right: 7px;
+  animation: pulse 2s ease infinite;
   flex-shrink: 0;
 }
 

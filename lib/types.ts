@@ -12,3 +12,5 @@ export type ToastType = "success" | "error" | "warn" | "info";
 export type ToastTheme = "A" | "B" | "C";
 
 export type AppThemeType = "cyber" | "terminal" | "military";
+
+export type NavTheme = "A" | "B" | "C";

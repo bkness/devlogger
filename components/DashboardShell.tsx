@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Log, ToastTheme, AppThemeType } from "@/lib/types";
+import { Log, ToastTheme, AppThemeType, NavTheme } from "@/lib/types";
 import { Navbar } from "./Navbar";
 import LogDashboard from "./LogDashboard";
 
@@ -12,6 +12,7 @@ type DashboardShellProps = {
 export default function DashboardShell({ logs }: DashboardShellProps) {
   const [toastTheme, setToastTheme] = useState<ToastTheme>("A");
   const [appTheme, setAppTheme] = useState<AppThemeType>("cyber");
+  const [navTheme, setNavTheme] = useState<NavTheme>("A");
 
   useEffect(() => {
     document.documentElement.classList.remove("cyber", "terminal", "military");
@@ -22,7 +23,15 @@ export default function DashboardShell({ logs }: DashboardShellProps) {
 
   return (
     <>
-      <Navbar logs={logs} toastTheme={toastTheme} onToastThemeChange={setToastTheme} appTheme={appTheme} onAppThemeChange={setAppTheme} />
+      <Navbar
+        logs={logs}
+        toastTheme={toastTheme}
+        onToastThemeChange={setToastTheme}
+        appTheme={appTheme}
+        onAppThemeChange={setAppTheme}
+        navTheme={navTheme}
+        onNavThemeChange={setNavTheme}
+      />
       <LogDashboard logs={logs} toastTheme={toastTheme} />
     </>
   );
