@@ -1001,11 +1001,17 @@ h2, .text {
 .log-card {
   border-color: var(--border);
   background: var(--surface);
-  height: 170px;
-  overflow: visible;
+  height: 185px;
+  overflow: hidden;
   position: relative;
   box-shadow: 0 0 15px -0.05px var(--glow);
   margin: 10px 5px 10px 5px;
+}
+.log-card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .log-card:hover {
