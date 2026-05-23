@@ -129,7 +129,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                     </div>
                     <div>
                         <div className="nav-title">DEVLOGGER</div>
-                        <div className="nav-sub">devforge · bkness</div>
+                        <div className="nav-sub">devforge · {userName}</div>
                     </div>
                 </div>
 
