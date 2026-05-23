@@ -10,7 +10,7 @@ interface LogFormProps {
   onClear: () => void;
   detailLog: Log | null;
   onDetailClear: () => void;
-  handleToast: (msg: string, type: ToastType) => void;
+  handleToast: (msg: string, type: ToastType, title?: string) => void;
 }
 
 export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear, handleToast }: LogFormProps) {
@@ -23,14 +23,14 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
-    if (!title.trim()) { handleToast("Please fill in the title", "error"); return; }
-    if (!content.trim()) { handleToast("Please fill in the content", "error"); return; }
-    if (title.length > 50) { handleToast("Title must be under 50 characters", "error"); return; }
-    if (content.length > 800) { handleToast("Content must be under 800 characters", "error"); return; }
+    if (!title.trim()) { handleToast("Please fill in the title", "error", "Validation"); return; }
+    if (!content.trim()) { handleToast("Please fill in the content", "error", "Validation"); return; }
+    if (title.length > 50) { handleToast("Title must be under 50 characters", "error", "Validation"); return; }
+    if (content.length > 800) { handleToast("Content must be under 800 characters", "error", "Validation"); return; }
     await createLog(title, content);
     setTitle("");
     setContent("");
-    handleToast("Log created successfully", "success");
+    handleToast("Log created successfully", "success", "Log created");
   }
 
   function handleEditClick() {
@@ -46,7 +46,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     setIsEditing(false);
     onDetailClear();
     onClear();
-    handleToast("Log updated successfully", "success");
+    handleToast("Log updated successfully", "success", "Log updated");
   }
 
   async function handleDelete() {
@@ -54,12 +54,12 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     await deleteLog(detailLog.id);
     onDetailClear();
     onClear();
-    handleToast("Log deleted successfully", "success");
+    handleToast("Log deleted successfully", "success", "Log deleted");
   }
 
   function handleCancelEdit() {
     setIsEditing(false);
-    handleToast("Edit cancelled", "warn");
+    handleToast("Edit cancelled", "warn", "Cancelled");
   }
 
   return (
