@@ -13,6 +13,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          try {
+            var s = localStorage.getItem('devlogger-settings');
+            if (s) {
+              var t = JSON.parse(s).appTheme;
+              if (t) document.documentElement.classList.add(t);
+            }
+          } catch(e) {}
+        `}} />
+      </head>
       <body>{children}</body>
     </html>
   );
