@@ -1,6 +1,7 @@
 'use client';
 import { SettingsPanel } from "./SettingsPanel";
 import { useState, useEffect } from "react";
+import { signOut } from "next-auth/react";
 import { Log, ToastTheme, AppThemeType, NavTheme } from "@/lib/types";
 
 type NavbarProps = {
@@ -69,6 +70,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                         {userName && <span className="nb-user">// {userName}</span>}
                         <span className="nb-count"><span className="nb-count-val">{totalLogs}</span> logs</span>
                         <button type="button" className="nb-new">+ New</button>
+                        <button type="button" className="nav-signout" onClick={() => signOut({ callbackUrl: "/login" })}>↪</button>
                     </div>
                 </nav>
                 {settingsPanel}
@@ -105,6 +107,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                         </button>
                         <button type="button" className="nc-action">Export</button>
                         <button type="button" className="nc-action" onClick={openSettings}>⚙</button>
+                        <button type="button" className="nc-action nav-signout" onClick={() => signOut({ callbackUrl: "/login" })}>↪</button>
                     </div>
                 </nav>
                 {settingsPanel}
@@ -166,6 +169,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                     <div className="nav-divider"></div>
                     <button className="nav-btn">+ New Log</button>
                     <div className="nav-time">{time}</div>
+                    <button type="button" className="nav-signout" onClick={() => signOut({ callbackUrl: "/login" })}>↪</button>
                 </div>
             </nav>
             {settingsPanel}
