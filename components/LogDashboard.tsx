@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Log } from "@/lib/types";
+import { Log, AppThemeType } from "@/lib/types";
 import LogForm from "./LogForm";
 import LogCard from "./LogCard";
 import { ToastType } from "@/lib/types";
@@ -11,9 +11,10 @@ import { Toast } from "./Toast";
 type LogDashboardProps = {
   logs: Log[];
   toastTheme: ToastTheme;
+  appTheme: AppThemeType;
 };
 
-export default function LogDashboard({ logs, toastTheme }: LogDashboardProps) {
+export default function LogDashboard({ logs, toastTheme, appTheme }: LogDashboardProps) {
   const [selectedLog, setSelectedLog] = useState<Log | null>(null);
   const [detailLog, setDetailLog] = useState<Log | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -42,7 +43,7 @@ export default function LogDashboard({ logs, toastTheme }: LogDashboardProps) {
         handleToast={handleToast}
       />
       {message && toastType && (
-        <Toast key={toastKey} message={message} type={toastType} theme={toastTheme} />
+        <Toast key={toastKey} message={message} type={toastType} theme={toastTheme} appTheme={appTheme} />
       )}
       {logs.length === 0 ? (
         <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">

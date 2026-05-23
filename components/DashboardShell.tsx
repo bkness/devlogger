@@ -60,7 +60,7 @@ export default function DashboardShell({ logs }: DashboardShellProps) {
         navTheme={navTheme}
         onNavThemeChange={setNavTheme}
       />
-      <LogDashboard logs={logs} toastTheme={toastTheme} />
+      <LogDashboard logs={logs} toastTheme={toastTheme} appTheme={appTheme} />
     </>
   );
 }
