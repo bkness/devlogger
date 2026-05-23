@@ -11,20 +11,23 @@ async function getUserId() {
 
 export async function createLog(title: string, content: string) {
     const userId = await getUserId();
+    if (!userId) return;
     await prisma.log.create({ data: { title, content, userId } });
-    if (userId) updateTag(`logs-${userId}`);
+    updateTag(`logs-${userId}`);
 }
 
 export async function updateLog(id: number, title: string, content: string) {
     const userId = await getUserId();
-    await prisma.log.update({ where: { id }, data: { title, content } });
-    if (userId) updateTag(`logs-${userId}`);
+    if (!userId) return;
+    await prisma.log.updateMany({ where: { id, userId }, data: { title, content } });
+    updateTag(`logs-${userId}`);
 }
 
 export async function deleteLog(id: number) {
     const userId = await getUserId();
-    await prisma.log.delete({ where: { id } });
-    if (userId) updateTag(`logs-${userId}`);
+    if (!userId) return;
+    await prisma.log.deleteMany({ where: { id, userId } });
+    updateTag(`logs-${userId}`);
 }
 
 export async function saveSettings(settings: {
