@@ -117,6 +117,15 @@
 .military .nc-brand-block {
   background: var(--surface2);
 }
+.terminal .nav-b {
+  background: var(--surface);
+}
+.terminal .nav-c {
+  background: var(--surface);
+}
+.terminal .nc-brand-block {
+  background: var(--surface2);
+}
 
 html.terminal,
 body.terminal {
@@ -398,6 +407,14 @@ body {
   letter-spacing: 0.08em;
   flex-shrink: 0;
 }
+.nav-user {
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
 
 /* ════════════════════════════════
    NAVBAR B — Slim Signal
@@ -486,6 +503,13 @@ body {
   align-items: center;
   gap: 14px;
   flex-shrink: 0;
+}
+.nb-user {
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+  opacity: 0.75;
 }
 .nb-count {
   font-size: 10px;
@@ -596,6 +620,15 @@ body {
   gap: 0;
   border-left: 1px solid var(--border);
   flex-shrink: 0;
+}
+.nc-user {
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+  opacity: 0.75;
+  padding: 0 14px;
+  border-right: 1px solid var(--border);
 }
 .nc-action {
   height: 100%;
