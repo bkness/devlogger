@@ -1533,3 +1533,151 @@ h2, .text {
   font-size: 10px;
   letter-spacing: 0.1em;
 }
+
+/* ════════════════════════════════
+   LOGIN PAGE
+════════════════════════════════ */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  background-image:
+    linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+}
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary), transparent);
+  opacity: 0.6;
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.login-hex {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+.login-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+}
+.login-sub {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+  margin-top: 2px;
+}
+
+.login-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+.login-tab {
+  flex: 1;
+  padding: 8px 0;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.login-tab:hover { color: var(--primary); }
+.login-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.login-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.login-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+.login-input {
+  width: 100%;
+  padding: 10px 12px;
+  height: auto;
+}
+
+.login-error {
+  font-size: 10px;
+  color: var(--accent, #ff3b5c);
+  letter-spacing: 0.05em;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,59,92,0.3);
+  background: rgba(255,59,92,0.05);
+}
+
+.login-submit {
+  margin-top: 4px;
+  padding: 10px 16px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--btn-border);
+  color: var(--btn);
+  background: var(--btn-bg);
+  transition: all 0.15s;
+}
+.login-submit:hover:not(:disabled) {
+  box-shadow: 0 0 12px var(--btn-glow);
+}
+.login-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Idle panel watermark SVG ───────────────────────── */
+.idle-hex-outer { stroke: var(--primary); fill: rgba(0,229,255,0.04); }
+.idle-hex-inner { stroke: var(--primary); opacity: 0.25; }
+.idle-hex-text  { fill: var(--accent); }
+
+.terminal .idle-hex-outer { fill: rgba(255,179,0,0.05); }
+.terminal .idle-hex-text  { fill: var(--primary); }
+
+.military #idlePanel      { opacity: 0.55; }
+.military .idle-hex-outer { stroke: #2d6e3e; fill: rgba(45,110,62,0.08); }
+.military .idle-hex-inner { stroke: #2d6e3e; }
+.military .idle-hex-text  { fill: #1a4d2a; }
