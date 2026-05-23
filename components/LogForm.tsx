@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Log } from "@/lib/types";
 import { createLog, updateLog, deleteLog } from "@/app/actions";
 import { ToastType } from "@/lib/types";
@@ -115,7 +114,14 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
         <div id="detailPanel" className="flex-1 p-4 flex flex-col gap-3">
           {!detailLog && (
             <div id="idlePanel">
-              <Image src="/images/devlogger-logo.png" alt="Dev Logger" width={200} height={200} loading="eager" style={{ opacity: 0.8 }} />
+              <svg viewBox="0 0 100 100" fill="none" style={{ width: 120, height: 120, opacity: 0.6 }}>
+                <polygon className="idle-hex-outer" points="50,6 90,28 90,72 50,94 10,72 10,28"
+                  strokeWidth="2" />
+                <polygon className="idle-hex-inner" points="50,18 78,33 78,67 50,82 22,67 22,33"
+                  strokeWidth="1.5" fill="none" />
+                <text className="idle-hex-text" x="50" y="62" textAnchor="middle"
+                  fontSize="28" fontWeight="700" fontFamily="monospace">DL</text>
+              </svg>
               <p id="idleWatermark">DEVFORGE</p>
               <p id="idleSubtitle">DEV LOGGER</p>
               <p id="idleHint">select a log to preview</p>
