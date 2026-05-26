@@ -1,8 +1,9 @@
 /* ════════════════════════════════
    IMPORTS & KEYFRAMES
-════════════════════════════════ */
+═══════════════════════════════════ */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Space+Grotesk:wght@300;500&family=Share+Tech+Mono&family=Courier+Prime:wght@400;700&display=swap');
 @import "tailwindcss";
+
 @keyframes slideInPanel {
   from { transform: translateX(100%); opacity: 0; }
   to   { transform: translateX(0);    opacity: 1; }
@@ -227,10 +228,9 @@ body.cyber {
    BASE — html, body, scrollbar
 ════════════════════════════════ */
 html {
-  background-image: url("/shell-bg.svg");
+  background-color: var(--bg);
   scrollbar-color: rgba(0, 229, 255, 0.4) var(--bg);
   scrollbar-width: thin;
-  background-image: url("../public/images/shell-bg.svg");
   min-height: 100%;
 }
 
@@ -754,6 +754,11 @@ h2, .text {
   overflow: hidden;
 }
 
+.button-wrapper {
+  display: flex;
+  flex-direction: ;
+}
+
 .text-xs { font-size: 1.25em; }
 
 .text .see-more, .text .see-less {
@@ -949,6 +954,22 @@ h2, .text {
 
 .delete-btn:hover { background: rgba(255,107,53,0.3); }
 
+.cancel-btn {
+  font-size: 12px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  background: transparent;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+  height: 2.3rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: var(--font-jet), var(--font-tech), Helvetica;
+  transition: all 0.15s;
+}
+.cancel-btn:hover { background: var(--surface2); color: var(--text); }
+
 .military .delete-btn {
   border: 1px solid #cc2200;
   color: #cc2200;
@@ -1115,6 +1136,10 @@ h2, .text {
   font-size: 14px;
   align-self: flex-start;
   margin-top: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
 }
 
 .preview-date, .detail-date, .log-card-date {
@@ -1748,3 +1773,18 @@ h2, .text {
 .military .idle-hex-outer { stroke: #2d6e3e; fill: rgba(45,110,62,0.08); }
 .military .idle-hex-inner { stroke: #2d6e3e; }
 .military .idle-hex-text  { fill: #1a4d2a; }
+
+/* ════════════════════════════════
+    HACK FOR AUTOFILL 
+════════════════════════════════ */
+.login-input:-webkit-autofill,
+.login-input:-webkit-autofill:hover,
+.login-input:-webkit-autofill:focus,
+.panel-field:-webkit-autofill,
+.panel-field:-webkit-autofill:hover,
+.panel-field:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--primary);
+  -webkit-box-shadow: 0 0 0 1000px var(--field) inset;
+  caret-color: var(--primary);
+  transition: background-color 9999s ease-in-out 0s;
+}

@@ -175,7 +175,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
                 <button type="button" id="deleteBtn" className="delete-btn flex-1 p-2" onClick={() => setConfirmDelete(true)}>
                   Delete
                 </button>
-                <button type="button" id="cancelBtn" onClick={onDetailClear}>
+                <button type="button" id="cancelBtn" className="cancel-btn flex-1 p-2" onClick={onDetailClear}>
                   Cancel
                 </button>
               </>
@@ -183,16 +183,6 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
           </div>
         )}
 
-        {detailLog && isEditing && (
-          <div className="flex gap-2 mb-1 p-2">
-            <button type="button" className="update-btn flex-1 p-2" onClick={handleSave}>
-              Save Changes
-            </button>
-            <button type="button" id="cancelBtn" onClick={handleCancelEdit}>
-              Cancel
-            </button>
-          </div>
-        )}
       </div>
 
     </form>
