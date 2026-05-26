@@ -16,12 +16,18 @@ export default function LoginPage() {
         setError(null);
         setLoading(true);
 
-        const fd       = new FormData(e.currentTarget);
-        const email    = fd.get("email")    as string;
-        const password = fd.get("password") as string;
-        const name     = fd.get("name")     as string;
+        const fd              = new FormData(e.currentTarget);
+        const email           = fd.get("email")           as string;
+        const password        = fd.get("password")        as string;
+        const name            = fd.get("name")            as string;
+        const confirmPassword = fd.get("confirmPassword") as string;
 
         if (mode === "register") {
+            if (password !== confirmPassword) {
+                setError("Passwords do not match");
+                setLoading(false);
+                return;
+            }
             const result = await register(email, name, password);
             if (result.error) { setError(result.error); setLoading(false); return; }
             // auto-login after register
@@ -115,6 +121,20 @@ export default function LoginPage() {
                             placeholder="••••••••"
                         />
                     </div>
+
+                    {mode === "register" && (
+                        <div className="login-field-group">
+                            <label className="login-label">CONFIRM PASSWORD</label>
+                            <input
+                                name="confirmPassword"
+                                type="password"
+                                required
+                                autoComplete="new-password"
+                                className="panel-field login-input"
+                                placeholder="••••••••"
+                            />
+                        </div>
+                    )}
 
                     {error && <p className="login-error">{error}</p>}
 
