@@ -5,6 +5,7 @@ export type Log = {
   createdAt: Date;
   updatedAt: Date;
   userId: string;
+  tags: string[];
 };
 
 export type ToastType = "success" | "error" | "warn" | "info";

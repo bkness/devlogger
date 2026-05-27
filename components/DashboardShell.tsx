@@ -5,12 +5,16 @@ import { Log, ToastTheme, AppThemeType, NavTheme } from "@/lib/types";
 import { Navbar } from "./Navbar";
 import LogDashboard from "./LogDashboard";
 import { saveSettings } from "@/app/actions";
+import StatsView from "./StatsView";
+import TagsView from "./TagsView";
 
 type Settings = {
     appTheme:   AppThemeType;
     navTheme:   NavTheme;
     toastTheme: ToastTheme;
 };
+
+type View = "logs" | "stats" | "tags";
 
 const DEFAULTS: Settings = { appTheme: "cyber", navTheme: "A", toastTheme: "A" };
 
@@ -42,6 +46,7 @@ export default function DashboardShell({ logs, initialSettings, userName }: Dash
     const setAppTheme   = (appTheme: AppThemeType) => setSettings(s => ({ ...s, appTheme }));
     const setNavTheme   = (navTheme: NavTheme)      => setSettings(s => ({ ...s, navTheme }));
     const setToastTheme = (toastTheme: ToastTheme)  => setSettings(s => ({ ...s, toastTheme }));
+    const [view, setView] = useState<View>("logs");
 
     // Persist to DB on any theme change (skip initial mount)
     const mounted = useRef(false);
@@ -69,8 +74,12 @@ export default function DashboardShell({ logs, initialSettings, userName }: Dash
                 onAppThemeChange={setAppTheme}
                 navTheme={navTheme}
                 onNavThemeChange={setNavTheme}
+                currentView={view}
+                onViewChange={setView}
             />
-            <LogDashboard logs={logs} toastTheme={toastTheme} appTheme={appTheme} />
+            {view === "logs" && <LogDashboard logs={logs} toastTheme={toastTheme} appTheme={appTheme} />}
+            {view === "stats" && <StatsView logs={logs} />}
+            {view === "tags" && <TagsView logs={logs} />}
         </>
     );
 }
