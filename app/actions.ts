@@ -9,11 +9,11 @@ async function getUserId() {
     return session?.user?.id ?? null;
 }
 
-export async function createLog(title: string, content: string) {
+export async function createLog(title: string, content: string, tags: string[]) {
     const userId = await getUserId();
     if (!userId) return { error: "User not authenticated" };
     try {
-        await prisma.log.create({ data: { title, content, userId } });
+        await prisma.log.create({ data: { title, content, tags, userId } });
         updateTag(`logs-${userId}`);
     } catch (err) {
         console.error("Error creating log:", err);
@@ -21,11 +21,11 @@ export async function createLog(title: string, content: string) {
     }
 }
 
-export async function updateLog(id: number, title: string, content: string) {
+export async function updateLog(id: number, title: string, content: string, tags: string[]) {
     const userId = await getUserId();
     if (!userId) return { error: "User not authenticated" };
     try {
-        await prisma.log.updateMany({ where: { id, userId }, data: { title, content } });
+        await prisma.log.updateMany({ where: { id, userId }, data: { title, content, tags } });
         updateTag(`logs-${userId}`);
     } catch (err) {
         console.error("Error updating log:", err);

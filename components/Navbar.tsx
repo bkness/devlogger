@@ -13,9 +13,13 @@ type NavbarProps = {
     onAppThemeChange: (theme: AppThemeType) => void;
     navTheme: NavTheme;
     onNavThemeChange: (theme: NavTheme) => void;
+    currentView: View;
+    onViewChange: (view: View) => void;
 };
 
-export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appTheme, onAppThemeChange, navTheme, onNavThemeChange }: NavbarProps) {
+type View = "logs" | "stats" | "tags";
+
+export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appTheme, onAppThemeChange, navTheme, onNavThemeChange, currentView, onViewChange }: NavbarProps) {
     const [settingsOpen, setSettingsOpen] = useState(false);
     const [time, setTime] = useState("--:--:--");
 
@@ -61,9 +65,14 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                     </div>
                     <div className="nb-sep" />
                     <div className="nb-links">
-                        <button type="button" className="nb-link active">Logs</button>
-                        <button type="button" className="nb-link">Stats</button>
-                        <button type="button" className="nb-link">Tags</button>
+                        <button className={`nb-link ${currentView === "logs" ? "active" : ""}`} onClick={() =>
+                            onViewChange("logs")}>
+                            <span className="nav-dot"></span>Logs
+                        </button>
+                        <button className={`nb-link ${currentView === "stats" ? "active" : ""}`} onClick={() =>
+                            onViewChange("stats")}>Stats</button>
+                        <button className={`nb-link ${currentView === "tags" ? "active" : ""}`} onClick={() =>
+                            onViewChange("tags")}>Tags</button>
                         <button type="button" className="nb-link" onClick={openSettings}>Settings</button>
                     </div>
                     <div className="nb-right">
@@ -91,12 +100,18 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                         <span className="nc-brand-text">DL</span>
                     </div>
                     <div className="nc-path">
-                        <button type="button" className="nc-crumb active">~/logs</button>
-                        <span className="nc-arrow">›</span>
-                        <button type="button" className="nc-crumb">~/stats</button>
-                        <span className="nc-arrow">›</span>
-                        <button type="button" className="nc-crumb">~/tags</button>
-                        <span className="nc-arrow">›</span>
+                        <button className={`nc-crumb ${currentView === "logs" ? "active" : ""}`} onClick={() =>
+                            onViewChange("logs")}>
+                            <span className="logs"></span>Logs
+                        </button>
+                        <button className={`nc-crumb ${currentView === "stats" ? "active" : ""}`} onClick={() =>
+                            onViewChange("stats")}>
+                            <span className="stats"></span>Stats
+                        </button>
+                        <button className={`nc-crumb ${currentView === "tags" ? "active" : ""}`} onClick={() =>
+                            onViewChange("tags")}>
+                            <span className="tags"></span>Tags
+                        </button>
                         <button type="button" className="nc-crumb" onClick={openSettings}>~/settings</button>
                     </div>
                     <div className="nc-right">
@@ -134,12 +149,14 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                 </div>
 
                 <div className="nav-nav">
-                    <button className="nav-link active">
-                        <span className="nav-dot"></span>
-                        Logs
+                    <button className={`nav-link ${currentView === "logs" ? "active" : ""}`} onClick={() =>
+                        onViewChange("logs")}>
+                        <span className="nav-dot"></span>Logs
                     </button>
-                    <button className="nav-link">Stats</button>
-                    <button className="nav-link">Tags</button>
+                    <button className={`nav-link ${currentView === "stats" ? "active" : ""}`} onClick={() =>
+                        onViewChange("stats")}>Stats</button>
+                    <button className={`nav-link ${currentView === "tags" ? "active" : ""}`} onClick={() =>
+                        onViewChange("tags")}>Tags</button>
                     <button className="nav-link"
                         id="settingsBtn"
                         type="button"

@@ -16,10 +16,14 @@ interface LogFormProps {
 export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear, handleToast }: LogFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState("");
 
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
+  const [editTags, setEditTags] = useState<string[]>([]);
+  const [editTagInput, setEditTagInput] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   async function handleCreate(e: React.FormEvent) {
@@ -28,26 +32,44 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     if (!content.trim()) { handleToast("Please fill in the content", "error", "Validation"); return; }
     if (title.length > 50) { handleToast("Title must be under 50 characters", "error", "Validation"); return; }
     if (content.length > 800) { handleToast("Content must be under 800 characters", "error", "Validation"); return; }
-    const result = await createLog(title, content);
+    const result = await createLog(title, content, tags);
     if (result?.error) {
       handleToast(result.error, "error", "Error");
     } else {
       handleToast("Log created successfully", "success", "Log created");
       setTitle("");
       setContent("");
+      setTags([]);
     }
+  }
+
+  function handleTagKeyDown(
+    e: React.KeyboardEvent<HTMLInputElement>,
+    current: string[],
+    setter: (t: string[]) => void,
+    inputValue: string,
+    inputSetter: (v: string) => void
+  ) {
+    if (e.key !== "Enter" && e.key !== ",") return;
+    e.preventDefault();
+    const val = inputValue.trim().toLowerCase().replace(/,/g, "");
+    if (!val || current.includes(val) || current.length >= 5 || val.length > 20) return;
+    setter([...current, val]);
+    inputSetter("");
   }
 
   function handleEditClick() {
     if (!detailLog) return;
     setEditTitle(detailLog.title);
     setEditContent(detailLog.content);
+    setEditTags(detailLog.tags ?? []);
+    setEditTagInput("");
     setIsEditing(true);
   }
 
   async function handleSave() {
     if (!detailLog) return;
-    const result = await updateLog(detailLog.id, editTitle, editContent);
+    const result = await updateLog(detailLog.id, editTitle, editContent, editTags);
     if (result?.error) {
       handleToast(result.error, "error", "Error");
     } else {
@@ -77,8 +99,8 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
   }
 
   useEffect(() => {
-      setConfirmDelete(false);
-      setIsEditing(false);
+    setConfirmDelete(false);
+    setIsEditing(false);
   }, [detailLog?.id]);
 
   return (
@@ -104,6 +126,24 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
               onChange={(e) => setContent(e.target.value)}
               className="panel-field p-2 rounded w-full"
             />
+            <div className="flex flex-wrap gap-2 items-center">
+              {tags.map(tag => (
+                <span key={tag} className="tag-chip">
+                  {tag}
+                  <button type="button" className="tag-remove-btn" onClick={() => setTags(tags.filter(t => t !== tag))}>×</button>
+                </span>
+              ))}
+              {tags.length < 5 && (
+                <input
+                  type="text"
+                  placeholder="Add tag (max 5)"
+                  value={tagInput}
+                  onChange={e => setTagInput(e.target.value)}
+                  onKeyDown={e => handleTagKeyDown(e, tags, setTags, tagInput, setTagInput)}
+                  className="tag-input"
+                />
+              )}
+            </div>
             <button type="submit" id="addLogBtn">
               Add Log
             </button>
@@ -168,6 +208,24 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
                 onChange={(e) => setEditContent(e.target.value)}
                 className="panel-field p-2 rounded w-full flex-1"
               />
+              <div className="flex flex-wrap gap-2 items-center">
+                {editTags.map(tag => (
+                  <span key={tag} className="tag-chip">
+                    {tag}
+                    <button type="button" className="tag-remove-btn" onClick={() => setEditTags(editTags.filter(t => t !== tag))}>×</button>
+                  </span>
+                ))}
+                {editTags.length < 5 && (
+                  <input
+                    type="text"
+                    placeholder="Add tag (max 5)"
+                    value={editTagInput}
+                    onChange={e => setEditTagInput(e.target.value)}
+                    onKeyDown={e => handleTagKeyDown(e, editTags, setEditTags, editTagInput, setEditTagInput)}
+                    className="tag-input"
+                  />
+                )}
+              </div>
             </div>
           )}
         </div>
