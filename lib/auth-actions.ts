@@ -4,6 +4,11 @@ import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
 
 export async function register(email: string, name: string, password: string) {
+
+    if (password.length < 8) {
+        return { error: "Password must be at least 8 characters" };
+    }
+    
     const existing = await prisma.user.findFirst({
         where: { OR: [{ email }, { name }] },
     });
