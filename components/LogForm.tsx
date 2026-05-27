@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Log } from "@/lib/types";
 import { createLog, updateLog, deleteLog } from "@/app/actions";
 import { ToastType } from "@/lib/types";
@@ -21,8 +21,6 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
-
-
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -77,6 +75,11 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     setIsEditing(false);
     handleToast("Edit cancelled", "warn", "Cancelled");
   }
+
+  useEffect(() => {
+      setConfirmDelete(false);
+      setIsEditing(false);
+  }, [detailLog?.id]);
 
   return (
     <form id="mainForm" onSubmit={handleCreate} className="form-wrapper flex flex-col lg:flex-row gap-4 mb-8">
