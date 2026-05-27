@@ -22,16 +22,22 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
   const [editContent, setEditContent] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(false);
 
+
+
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim()) { handleToast("Please fill in the title", "error", "Validation"); return; }
     if (!content.trim()) { handleToast("Please fill in the content", "error", "Validation"); return; }
     if (title.length > 50) { handleToast("Title must be under 50 characters", "error", "Validation"); return; }
     if (content.length > 800) { handleToast("Content must be under 800 characters", "error", "Validation"); return; }
-    await createLog(title, content);
-    setTitle("");
-    setContent("");
-    handleToast("Log created successfully", "success", "Log created");
+    const result = await createLog(title, content);
+    if (result?.error) {
+      handleToast(result.error, "error", "Error");
+    } else {
+      handleToast("Log created successfully", "success", "Log created");
+      setTitle("");
+      setContent("");
+    }
   }
 
   function handleEditClick() {
@@ -43,20 +49,28 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
 
   async function handleSave() {
     if (!detailLog) return;
-    await updateLog(detailLog.id, editTitle, editContent);
-    setIsEditing(false);
-    onDetailClear();
-    onClear();
-    handleToast("Log updated successfully", "success", "Log updated");
+    const result = await updateLog(detailLog.id, editTitle, editContent);
+    if (result?.error) {
+      handleToast(result.error, "error", "Error");
+    } else {
+      setIsEditing(false);
+      onDetailClear();
+      onClear();
+      handleToast("Log updated successfully", "success", "Log updated");
+    }
   }
 
   async function handleDelete() {
     if (!detailLog) return;
-    await deleteLog(detailLog.id);
-    setConfirmDelete(false);
-    onDetailClear();
-    onClear();
-    handleToast("Log deleted successfully", "success", "Log deleted");
+    const result = await deleteLog(detailLog.id);
+    if (result?.error) {
+      handleToast(result.error, "error", "Error");
+      setConfirmDelete(false);
+    } else {
+      onDetailClear();
+      onClear();
+      handleToast("Log deleted successfully", "success", "Log deleted");
+    }
   }
 
   function handleCancelEdit() {

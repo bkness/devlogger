@@ -11,7 +11,7 @@ async function getUserId() {
 
 export async function createLog(title: string, content: string) {
     const userId = await getUserId();
-    if (!userId) return;
+    if (!userId) return { error: "User not authenticated" };
     try {
         await prisma.log.create({ data: { title, content, userId } });
         updateTag(`logs-${userId}`);
@@ -23,7 +23,7 @@ export async function createLog(title: string, content: string) {
 
 export async function updateLog(id: number, title: string, content: string) {
     const userId = await getUserId();
-    if (!userId) return;
+    if (!userId) return { error: "User not authenticated" };
     try {
         await prisma.log.updateMany({ where: { id, userId }, data: { title, content } });
         updateTag(`logs-${userId}`);
@@ -35,7 +35,7 @@ export async function updateLog(id: number, title: string, content: string) {
 
 export async function deleteLog(id: number) {
     const userId = await getUserId();
-    if (!userId) return;
+    if (!userId) return { error: "User not authenticated" };
     try {
         await prisma.log.deleteMany({ where: { id, userId } });
         updateTag(`logs-${userId}`);
@@ -51,7 +51,7 @@ export async function saveSettings(settings: {
     toastTheme: string;
 }) {
     const userId = await getUserId();
-    if (!userId) return;
+    if (!userId) return { error: "User not authenticated" };
     try {
         await prisma.user.update({
             where: { id: userId },
