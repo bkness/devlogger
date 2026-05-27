@@ -84,7 +84,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
       {/* Left col — create form + session preview */}
       <div className="w-full lg:w-2/3 lg:self-start flex flex-col gap-4">
         <div className="form-entry-panel">
-          <div className="panel-header">// New Entry</div>
+          <div className="panel-header">{"// New Entry"}</div>
           <div className="form-entry-body">
             <input
               id="mainTitle"
@@ -173,7 +173,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
           <div className="flex gap-2 mb-1 p-2">
             {confirmDelete ? (
               <>
-                <span className="delete-confirm-label">// delete?</span>
+                <span className="delete-confirm-label">{"// delete?"}</span>
                 <button type="button" className="delete-btn flex-1 p-2" onClick={handleDelete}>
                   Yes, delete
                 </button>
@@ -194,6 +194,17 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
                 </button>
               </>
             )}
+          </div>
+        )}
+
+        {detailLog && isEditing && (
+          <div className="flex gap-2 mb-1 p-2">
+            <button type="button" id="saveBtn" className="update-btn flex-1 p-2" onClick={handleSave}>
+              Save
+            </button>
+            <button type="button" id="cancelEditBtn" className="cancel-btn flex-1 p-2" onClick={handleCancelEdit}>
+              Cancel
+            </button>
           </div>
         )}
 
