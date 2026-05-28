@@ -53,7 +53,11 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     if (e.key !== "Enter" && e.key !== ",") return;
     e.preventDefault();
     const val = inputValue.trim().toLowerCase().replace(/,/g, "");
-    if (!val || current.includes(val) || current.length >= 5 || val.length > 20) return;
+    if (!val || current.includes(val) || current.length >= 5 || val.length > 20) {
+      return handleToast(!val ? "Tag cannot be empty" : current.includes(val) ? "Tag already added" : current.length >= 5 ? "Maximum 5 tags allowed" : "Tag must be under 20 characters", 
+      "error", 
+      "Invalid tag");
+    }
     setter([...current, val]);
     inputSetter("");
   }
