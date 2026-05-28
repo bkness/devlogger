@@ -30,6 +30,22 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
     const thisWeek = logs.filter(log => new Date(log.createdAt) >= startOfWeek).length;
     const totalLogs = logs.length;
 
+    function handleNewLog() {
+        onViewChange("logs");
+        setTimeout(() => document.getElementById("mainTitle")?.focus(), 0);
+    }
+
+    function handleExport() {
+        const json = JSON.stringify(logs, null, 2);
+        const blob = new Blob([json], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `devlogger-logs-${new Date().toISOString().split("T")[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
     useEffect(() => {
         function tick() {
             setTime(new Date().toLocaleTimeString("en-US", { hour12: false }));
@@ -76,9 +92,9 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                         <button type="button" className="nb-link" onClick={openSettings}>Settings</button>
                     </div>
                     <div className="nb-right">
-                        {userName && <span className="nb-user">// {userName}</span>}
+                        {userName && <span className="nb-user">{"// "}{userName}</span>}
                         <span className="nb-count"><span className="nb-count-val">{totalLogs}</span> logs</span>
-                        <button type="button" className="nb-new">+ New</button>
+                        <button type="button" className="nb-new" onClick={handleNewLog}>+ New</button>
                         <button type="button" className="nav-signout" onClick={() => signOut({ callbackUrl: "/login" })}>↪</button>
                     </div>
                 </nav>
@@ -115,13 +131,12 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                         <button type="button" className="nc-crumb" onClick={openSettings}>~/settings</button>
                     </div>
                     <div className="nc-right">
-                        {userName && <span className="nc-user">// {userName}</span>}
-                        <button type="button" className="nc-action primary">
+                        {userName && <span className="nc-user">{"// "}{userName}</span>}
+                        <button type="button" className="nc-action primary" onClick={handleNewLog}>
                             <div className="nc-pulse" />
-                            + New Log
+                            New Log
                         </button>
-                        <button type="button" className="nc-action">Export</button>
-                        <button type="button" className="nc-action" onClick={openSettings}>⚙</button>
+                        <button type="button" className="nc-action" onClick={handleExport}>Export</button>
                         <button type="button" className="nc-action nav-signout" onClick={() => signOut({ callbackUrl: "/login" })}>↪</button>
                     </div>
                 </nav>
@@ -170,7 +185,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                 <div className="nav-right">
                     {userName && (
                         <>
-                            <div className="nav-user">// {userName}</div>
+                            <div className="nav-user">{"// "}{userName}</div>
                             <div className="nav-divider"></div>
                         </>
                     )}
@@ -184,7 +199,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                         <div className="nav-stat-label">This week</div>
                     </div>
                     <div className="nav-divider"></div>
-                    <button className="nav-btn">+ New Log</button>
+                    <button className="nav-btn" onClick={handleNewLog}>+ New Log</button>
                     <div className="nav-time">{time}</div>
                     <button type="button" className="nav-signout" onClick={() => signOut({ callbackUrl: "/login" })}>↪</button>
                 </div>
