@@ -14,6 +14,12 @@ type Settings = {
     toastTheme: ToastTheme;
 };
 
+type DashboardShellProps = {
+    logs:            Log[];
+    initialSettings: unknown;
+    userName:        string;
+};
+
 type View = "logs" | "stats" | "tags";
 
 const DEFAULTS: Settings = { appTheme: "cyber", navTheme: "A", toastTheme: "A" };
@@ -32,11 +38,6 @@ function parseSettings(raw: unknown): Settings {
     };
 }
 
-type DashboardShellProps = {
-    logs:            Log[];
-    initialSettings: unknown;
-    userName:        string;
-};
 
 export default function DashboardShell({ logs, initialSettings, userName }: DashboardShellProps) {
     const [{ appTheme, navTheme, toastTheme }, setSettings] = useState<Settings>(
@@ -47,6 +48,12 @@ export default function DashboardShell({ logs, initialSettings, userName }: Dash
     const setNavTheme   = (navTheme: NavTheme)      => setSettings(s => ({ ...s, navTheme }));
     const setToastTheme = (toastTheme: ToastTheme)  => setSettings(s => ({ ...s, toastTheme }));
     const [view, setView] = useState<View>("logs");
+    const [activeTag, setActiveTag] = useState<string | null>(null);
+
+    function handleTagClick(tag: string) {
+        setView("tags");
+        setActiveTag(tag);
+    }
 
     // Persist to DB on any theme change (skip initial mount)
     const mounted = useRef(false);
@@ -77,9 +84,9 @@ export default function DashboardShell({ logs, initialSettings, userName }: Dash
                 currentView={view}
                 onViewChange={setView}
             />
-            {view === "logs" && <LogDashboard logs={logs} toastTheme={toastTheme} appTheme={appTheme} />}
+            {view === "logs" && <LogDashboard logs={logs} toastTheme={toastTheme} appTheme={appTheme} onTagClick={handleTagClick} />}
             {view === "stats" && <StatsView logs={logs} />}
-            {view === "tags" && <TagsView logs={logs} />}
+            {view === "tags" && <TagsView logs={logs} activeTag={activeTag} setActiveTag={setActiveTag} />}
         </>
     );
 }

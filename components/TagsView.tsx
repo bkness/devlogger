@@ -1,9 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { Log } from "@/lib/types";
 
-type Props = { logs: Log[] };
+type Props = {
+    logs: Log[];
+    activeTag: string | null;
+    setActiveTag: Dispatch<SetStateAction<string | null>>;
+};
 
 function getAllTags(logs: Log[]): { tag: string; count: number }[] {
     const freq: Record<string, number> = {};
@@ -13,9 +17,7 @@ function getAllTags(logs: Log[]): { tag: string; count: number }[] {
         .map(([tag, count]) => ({ tag, count }));
 }
 
-export default function TagsView({ logs }: Props) {
-    const [activeTag, setActiveTag] = useState<string | null>(null);
-
+export default function TagsView({ logs, activeTag, setActiveTag }: Props) {
     const allTags = getAllTags(logs);
     const maxCount = allTags[0]?.count ?? 1;
 
