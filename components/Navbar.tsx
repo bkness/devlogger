@@ -3,6 +3,7 @@ import { SettingsPanel } from "./SettingsPanel";
 import { useState, useEffect } from "react";
 import { signOut } from "next-auth/react";
 import { Log, ToastTheme, AppThemeType, NavTheme } from "@/lib/types";
+import { MobileNav } from "./MobileNav";
 
 type NavbarProps = {
     logs: Log[];
@@ -70,6 +71,17 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
         />
     );
 
+    const mobileNav = <MobileNav
+        userName={userName}
+        totalLogs={totalLogs}
+        thisWeek={thisWeek}
+        currentView={currentView}
+        onViewChange={onViewChange}
+        onOpenSettings={openSettings}
+        onNewLog={handleNewLog}
+        onExport={handleExport}
+    />;
+
     /* ── NAV B — Slim Signal ── */
     if (navTheme === "B") {
         return (
@@ -98,6 +110,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                         <button type="button" className="nav-signout" onClick={() => signOut({ callbackUrl: "/login" })}>↪</button>
                     </div>
                 </nav>
+                {mobileNav}
                 {settingsPanel}
             </>
         );
@@ -140,6 +153,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                         <button type="button" className="nc-action nav-signout" onClick={() => signOut({ callbackUrl: "/login" })}>↪</button>
                     </div>
                 </nav>
+                {mobileNav}
                 {settingsPanel}
             </>
         );
@@ -204,6 +218,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
                     <button type="button" className="nav-signout" onClick={() => signOut({ callbackUrl: "/login" })}>↪</button>
                 </div>
             </nav>
+            {mobileNav}
             {settingsPanel}
         </>
     );
