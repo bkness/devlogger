@@ -1,16 +1,16 @@
 "use client";
 
 import { Log } from "@/lib/types";
-
 interface LogCardProps {
   log: Log;
   previewing: boolean;
   detailing: boolean;
   onPreview: (log: Log) => void;
   onDetail: (log: Log | null) => void;
+  onTagClick?: (tag: string) => void;
 }
 
-export default function LogCard({ log, previewing, detailing, onPreview, onDetail }: LogCardProps) {
+export default function LogCard({ log, previewing, detailing, onPreview, onDetail, onTagClick }: LogCardProps) {
   const activeStyle = detailing
     ? { borderColor: "var(--primary)", boxShadow: "0 0 20px var(--glow)" }
     : previewing
@@ -24,6 +24,19 @@ export default function LogCard({ log, previewing, detailing, onPreview, onDetai
       onClick={() => onPreview(log)}
     >
       <h2 className="font-bold log-card-title">{log.title}</h2>
+      {(log.tags ?? []).length > 0 && (
+        <div className="log-card-tags">
+          {(log.tags ?? []).map(tag => (
+            <span
+              key={tag}
+              className="tag-chip"
+              onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="mt-auto flex justify-between items-end">
         <button
           type="button"

@@ -12,9 +12,10 @@ type LogDashboardProps = {
   logs: Log[];
   toastTheme: ToastTheme;
   appTheme: AppThemeType;
+  onTagClick?: (tag: string) => void;
 };
 
-export default function LogDashboard({ logs, toastTheme, appTheme }: LogDashboardProps) {
+export default function LogDashboard({ logs, toastTheme, appTheme, onTagClick }: LogDashboardProps) {
   const [selectedLog, setSelectedLog] = useState<Log | null>(null);
   const [detailLog, setDetailLog] = useState<Log | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -74,6 +75,7 @@ export default function LogDashboard({ logs, toastTheme, appTheme }: LogDashboar
               detailing={detailLog?.id === log.id}
               onPreview={setSelectedLog}
               onDetail={handleDetail}
+              onTagClick={onTagClick}
             />
           ))}
         </ul>
