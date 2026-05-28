@@ -486,7 +486,7 @@ body {
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: var(--text-dim);
+  color: var(--primary);
   opacity: 0.5;
   padding: 0 4px;
   transition: color 0.15s, opacity 0.15s;
@@ -781,6 +781,7 @@ body {
 
 .nc-action:last-child {
   border-right: none;
+  color: var(--primary);
 }
 
 .nc-action:hover {
@@ -1245,6 +1246,7 @@ h2,
 .log-card-title {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
