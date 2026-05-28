@@ -27,13 +27,14 @@ export default function LogCard({ log, previewing, detailing, onPreview, onDetai
       {(log.tags ?? []).length > 0 && (
         <div className="log-card-tags">
           {(log.tags ?? []).map(tag => (
-            <span
+            <button
+            type="button"
               key={tag}
               className="tag-chip"
               onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
             >
               {tag}
-            </span>
+            </button>
           ))}
         </div>
       )}
