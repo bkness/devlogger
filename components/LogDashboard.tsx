@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Log, AppThemeType } from "@/lib/types";
 import LogForm from "./LogForm";
 import LogCard from "./LogCard";
@@ -22,6 +22,7 @@ export default function LogDashboard({ logs, toastTheme, appTheme, onTagClick }:
   const [toastKey, setToastKey] = useState(0);
   const [toastType, setToastType] = useState<ToastType | null>(null);
 
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const dismissToast = useCallback(() => setMessage(null), []);
 
   useEffect(() => {
@@ -31,7 +32,13 @@ export default function LogDashboard({ logs, toastTheme, appTheme, onTagClick }:
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [message, toastTheme, dismissToast]);
+  }, [message, toastTheme, dismissToast ]);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const [toastTitle, setToastTitle] = useState<string | undefined>(undefined);
 
@@ -40,7 +47,8 @@ export default function LogDashboard({ logs, toastTheme, appTheme, onTagClick }:
     setToastType(type);
     setToastTitle(title);
     setToastKey((k) => k + 1);
-    setTimeout(() => setMessage(null), 3000);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setMessage(null), 3000);
   }
 
   function handleDetail(log: Log | null) {
