@@ -1,6 +1,7 @@
 "use client";
 
 import { Log } from "@/lib/types";
+import { getStartOfWeek, getStartOfMonth } from "@/lib/stats";
 
 type Props = { logs: Log[] };
 
@@ -62,10 +63,8 @@ export default function StatsView({ logs }: Props) {
         );
     }
     const now = new Date();
-    const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay());
-    startOfWeek.setHours(0, 0, 0, 0);
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const startOfWeek = getStartOfWeek(now);
+    const startOfMonth = getStartOfMonth(now);
 
     const thisWeek = logs.filter(l => new Date(l.createdAt) >= startOfWeek).length;
     const thisMonth = logs.filter(l => new Date(l.createdAt) >= startOfMonth).length;
