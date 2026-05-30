@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { signOut } from "next-auth/react";
 import { Log, ToastTheme, AppThemeType, NavTheme } from "@/lib/types";
 import { MobileNav } from "./MobileNav";
+import { countThisWeek } from "@/lib/stats";
 
 type NavbarProps = {
     logs: Log[];
@@ -24,11 +25,7 @@ export function Navbar({ logs, userName, toastTheme, onToastThemeChange, appThem
     const [settingsOpen, setSettingsOpen] = useState(false);
     const [time, setTime] = useState("--:--:--");
 
-    const now = new Date();
-    const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay());
-    startOfWeek.setHours(0, 0, 0, 0);
-    const thisWeek = logs.filter(log => new Date(log.createdAt) >= startOfWeek).length;
+    const thisWeek = countThisWeek(logs);
     const totalLogs = logs.length;
 
     function handleNewLog() {
