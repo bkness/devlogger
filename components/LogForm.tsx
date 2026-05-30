@@ -192,7 +192,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
           )}
 
           {detailLog && !isEditing && (
-            <div key={detailLog.id} id="detailContent" className="flex flex-col gap-3 h-full">
+            <div key={detailLog.id} className="detail-content flex flex-col gap-3 h-full">
               <h2 className="font-bold detail-title">{detailLog.title}</h2>
               <span className="detail-body">{detailLog.content}</span>
               <span className="detail-date">{new Date(detailLog.createdAt).toLocaleDateString()}</span>
@@ -200,7 +200,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
           )}
 
           {detailLog && isEditing && (
-            <div key={`edit-${detailLog.id}`} id="detailContent" className="flex flex-col gap-3 h-full">
+            <div key={`edit-${detailLog.id}`} className="detail-content flex flex-col gap-3 h-full">
               <input
                 type="text"
                 value={editTitle}
@@ -235,7 +235,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
         </div>
 
         {detailLog && !isEditing && (
-          <div className="flex gap-2 mb-1 p-2">
+          <div key={`actions-${detailLog.id}`} className="detail-actions flex gap-2 mb-1 p-2">
             {confirmDelete ? (
               <>
                 <span className="delete-confirm-label">{"// delete?"}</span>
@@ -263,7 +263,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
         )}
 
         {detailLog && isEditing && (
-          <div className="flex gap-2 mb-1 p-2">
+          <div key={`edit-actions-${detailLog.id}`} className="detail-actions flex gap-2 mb-1 p-2">
             <button type="button" id="saveBtn" className="update-btn flex-1 p-2" onClick={handleSave}>
               Save
             </button>
