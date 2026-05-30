@@ -22,6 +22,8 @@ type DashboardShellProps = {
 
 type View = "logs" | "stats" | "tags";
 
+type SortBy = "newest" | "oldest" | "alpha";
+
 const DEFAULTS: Settings = { appTheme: "cyber", navTheme: "A", toastTheme: "A" };
 
 const validAppThemes  = ["cyber", "terminal", "military"];
@@ -50,15 +52,26 @@ export default function DashboardShell({ logs, initialSettings, userName }: Dash
     const [view, setView] = useState<View>("logs");
     const [activeTag, setActiveTag] = useState<string | null>(null);
     const [query, setQuery] = useState("");
+    const [sortBy, setSortBy] = useState<SortBy>("newest");
 
-    const filteredLogs = useMemo(() => {
-        const q = query.trim().toLowerCase();
-        if (!q) return logs;
-        return logs.filter(log =>
-            log.title.toLowerCase().includes(q) ||
-            log.content.toLowerCase().includes(q)
-        );
-    }, [logs, query]);
+  const filteredLogs = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const matched = q
+      ? logs.filter(log =>
+          log.title.toLowerCase().includes(q) ||
+          log.content.toLowerCase().includes(q))
+      : logs;
+
+    const sorted = [...matched];
+    if (sortBy === "newest") {
+      sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    } else if (sortBy === "oldest") {
+      sorted.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    } else {
+      sorted.sort((a, b) => a.title.localeCompare(b.title));
+    }
+    return sorted;
+  }, [logs, query, sortBy]);
 
     function handleTagClick(tag: string) {
         setView("tags");
@@ -94,7 +107,16 @@ export default function DashboardShell({ logs, initialSettings, userName }: Dash
                 currentView={view}
                 onViewChange={setView}
             />
-            {view === "logs" && <LogDashboard logs={filteredLogs} query={query} setQuery={setQuery} toastTheme={toastTheme} appTheme={appTheme} onTagClick={handleTagClick} />}
+            {view === "logs" && (
+                <LogDashboard 
+                logs={filteredLogs} 
+                query={query} 
+                setQuery={setQuery} 
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                toastTheme={toastTheme} 
+                appTheme={appTheme} 
+                onTagClick={handleTagClick} />)}
             {view === "stats" && <StatsView logs={logs} />}
             {view === "tags" && <TagsView logs={logs} activeTag={activeTag} setActiveTag={setActiveTag} />}
         </>
