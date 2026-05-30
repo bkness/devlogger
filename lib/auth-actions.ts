@@ -2,8 +2,15 @@
 
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
+import { headers } from "next/headers";
+import { checkRateLimit } from "./rate-limit";  
 
 export async function register(email: string, name: string, password: string) {
+    const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+    const limit = checkRateLimit(`register:${ip}`, 5, 60_000); // 5 attempts per minute
+    if (!limit.ok) {
+        return { error: `Too many requests. Please try again in ${limit.retryAfterSec} seconds.` };
+    }
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const rawEmail = email;

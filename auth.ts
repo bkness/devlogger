@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
+import { checkRateLimit } from "./lib/rate-limit";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     ...authConfig,
@@ -10,11 +11,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     providers: [
         Credentials({
             credentials: {
-                email:    { label: "Email",    type: "email"    },
+                email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials) {
+            async authorize(credentials, req) {
                 if (!credentials?.email || !credentials?.password) return null;
+
+                const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+                const limit = checkRateLimit(`signin:${ip}`, 10, 60_000);
+                if (!limit.ok) return null;
 
                 const normalizedEmail = (credentials.email as string).toLowerCase().trim();
 
