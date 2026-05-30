@@ -45,6 +45,14 @@ export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange,
         { key: "C", label: "Terminal Path" },
     ];
 
+    const isAtDefaults = appTheme === "cyber" && navTheme === "A" && toastTheme === "A";
+
+    function handleReset() {
+        onAppThemeChange("cyber");
+        onNavThemeChange("A");
+        onToastThemeChange("A");
+    }
+
     return (
         <>
             <div className="settings-backdrop" onClick={onClose} />
@@ -101,6 +109,17 @@ export function SettingsPanel({ isOpen, onClose, toastTheme, onToastThemeChange,
                             </button>
                         ))}
                     </div>
+                </div>
+
+                <div className="settings-footer">
+                    <button
+                        type="button"
+                        className="btn btn--ghost"
+                        onClick={handleReset}
+                        disabled={isAtDefaults}
+                    >
+                        Reset to Defaults
+                    </button>
                 </div>
             </div>
         </>

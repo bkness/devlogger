@@ -838,12 +838,12 @@ body {
   animation: slideInPanel 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 
-.settings-header {
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-} */
+.settings-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
 
 /* ════════════════════════════════
    LAYOUT — page, typography
