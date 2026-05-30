@@ -1023,6 +1023,17 @@ h2,
   font-weight: 900;
 }
 
+.char-counter {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: monospace;
+  text-align: right;
+  margin-top: -4px;
+}
+.char-counter.over {
+  color: var(--red);
+}
+
 /* ════════════════════════════════
    RIGHT PANEL & IDLE STATE
 ════════════════════════════════ */

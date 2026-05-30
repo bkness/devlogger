@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Log } from "@/lib/types";
 import { createLog, updateLog, deleteLog } from "@/app/actions";
 import { ToastType } from "@/lib/types";
+import { TITLE_MAX, CONTENT_MAX, TAG_MAX_COUNT, TAG_MAX_LENGTH } from "@/lib/constants";
 
 interface LogFormProps {
   selectedLog: Log | null;
@@ -30,8 +31,8 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     e.preventDefault();
     if (!title.trim()) { handleToast("Please fill in the title", "error", "Validation"); return; }
     if (!content.trim()) { handleToast("Please fill in the content", "error", "Validation"); return; }
-    if (title.length > 50) { handleToast("Title must be under 50 characters", "error", "Validation"); return; }
-    if (content.length > 800) { handleToast("Content must be under 800 characters", "error", "Validation"); return; }
+    if (title.length > TITLE_MAX) { handleToast(`Title must be under ${TITLE_MAX} characters`, "error", "Validation"); return; }
+    if (content.length > CONTENT_MAX) { handleToast(`Content must be under ${CONTENT_MAX} characters`, "error", "Validation"); return; }
     const result = await createLog(title, content, tags);
     if (result?.error) {
       handleToast(result.error, "error", "Error");
@@ -123,6 +124,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
               onChange={(e) => setTitle(e.target.value)}
               className="panel-field p-2 rounded h-12 w-full"
             />
+            <div className={`char-counter ${title.length > TITLE_MAX ? "over" : ""}`}>{title.length}/{TITLE_MAX}</div>
             <textarea
               id="mainContent"
               placeholder="What did you work on?"
@@ -130,6 +132,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
               onChange={(e) => setContent(e.target.value)}
               className="panel-field p-2 rounded w-full"
             />
+              <div className={`char-counter ${content.length > CONTENT_MAX ? "over" : ""}`}>{content.length}/{CONTENT_MAX}</div>
             <div className="flex flex-wrap gap-2 items-center">
               {tags.map(tag => (
                 <span key={tag} className="tag-chip">
@@ -207,11 +210,13 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
                 onChange={(e) => setEditTitle(e.target.value)}
                 className="panel-field p-2 rounded w-full"
               />
+              <div className={`char-counter ${editTitle.length > TITLE_MAX ? "over" : ""}`}>{editTitle.length}/{TITLE_MAX}</div>
               <textarea
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 className="panel-field p-2 rounded w-full flex-1"
               />
+              <div className={`char-counter ${editContent.length > CONTENT_MAX ? "over" : ""}`}>{editContent.length}/{CONTENT_MAX}</div>
               <div className="flex flex-wrap gap-2 items-center">
                 {editTags.map(tag => (
                   <span key={tag} className="tag-chip">
