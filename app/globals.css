@@ -1094,6 +1094,11 @@ h2,
   color: var(--red);
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* ════════════════════════════════
    RIGHT PANEL & IDLE STATE
 ════════════════════════════════ */
