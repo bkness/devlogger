@@ -10,12 +10,14 @@ import { Toast } from "./Toast";
 
 type LogDashboardProps = {
   logs: Log[];
+  query: string;
+  setQuery: (q: string) => void;
   toastTheme: ToastTheme;
   appTheme: AppThemeType;
   onTagClick?: (tag: string) => void;
 };
 
-export default function LogDashboard({ logs, toastTheme, appTheme, onTagClick }: LogDashboardProps) {
+export default function LogDashboard({ logs, query, setQuery, toastTheme, appTheme, onTagClick }: LogDashboardProps) {
   const [selectedLog, setSelectedLog] = useState<Log | null>(null);
   const [detailLog, setDetailLog] = useState<Log | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -32,7 +34,7 @@ export default function LogDashboard({ logs, toastTheme, appTheme, onTagClick }:
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [message, toastTheme, dismissToast ]);
+  }, [message, toastTheme, dismissToast]);
 
   useEffect(() => {
     return () => {
@@ -58,6 +60,22 @@ export default function LogDashboard({ logs, toastTheme, appTheme, onTagClick }:
 
   return (
     <>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search logs..."
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          className="search-input"
+          aria-label="Search logs"
+        />
+        {query && (
+          <button type="button" className="search-clear" onClick={() => setQuery("")} aria-label="Clear
+  search">
+            ×
+          </button>
+        )}
+      </div>
       <LogForm
         selectedLog={selectedLog}
         onClear={() => setSelectedLog(null)}
@@ -70,8 +88,12 @@ export default function LogDashboard({ logs, toastTheme, appTheme, onTagClick }:
       )}
       {logs.length === 0 ? (
         <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">
-          <p className="panel-label" style={{ fontSize: "1rem" }}>{"// no logs found"}</p>
-          <p className="preview-empty" style={{ fontSize: "0.9rem" }}>start typing above to create your first entry</p>
+          <p className="panel-label" style={{ fontSize: "1rem" }}>
+            {query.trim() ? `// no logs match "${query}"` : "// no logs found"}
+          </p>
+          <p className="preview-empty" style={{ fontSize: "0.9rem" }}>
+            {query.trim() ? "try a different keyword" : "start typing above to create your first entry"}
+          </p>
         </div>
       ) : (
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 mt-8 items-start">

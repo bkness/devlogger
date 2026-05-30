@@ -913,6 +913,50 @@ h2,
   border-radius: 8px;
 }
 
+.search-bar {
+  max-width: 10xl;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--primary);
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary); 
+  box-shadow: 0 0 0 1px var(--glow);
+}
+
+.search-clear {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-clear:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+
+
 /* ════════════════════════════════
    PANEL HEADERS
 ════════════════════════════════ */
