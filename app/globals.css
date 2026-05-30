@@ -1176,25 +1176,67 @@ button:disabled {
   filter: brightness(1.4);
 }
 
-.update-btn {
+.btn {
   font-size: 12px;
   padding: 3px 8px;
-  border: 1px solid var(--btn-border);
-  color: var(--btn);
-  background: var(--btn-bg);
   border-radius: 2px;
   letter-spacing: 0.1em;
   height: 2.3rem;
   text-transform: uppercase;
   cursor: pointer;
   font-family: var(--font-jet), var(--font-tech), Helvetica;
-  box-shadow: 0 0 15px -0.05px var(--btn-glow);
   transition: all 0.15s;
+  border: 1px solid;
 }
 
-.update-btn:hover {
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  border-color: var(--btn-border);
+  color: var(--btn);
+  background: var(--btn-bg);
+  box-shadow: 0 0 15px -0.05px var(--btn-glow);
+}
+
+.btn--primary:hover {
   background: var(--btn-bg);
   filter: brightness(1.4);
+}
+
+.btn--danger {
+  border-color: rgba(255, 107, 53, 0.5);
+  color: #ff6b35;
+  background: rgba(255, 107, 53, 0.23);
+  box-shadow: 0 0 15px -0.05px rgba(255, 107, 53, 0.3);
+}
+
+.btn--danger:hover {
+  background: rgba(255, 107, 53, 0.3);
+}
+
+.btn--ghost {
+  border-color: var(--border);
+  color: var(--text-dim);
+  background: transparent;
+}
+
+.btn--ghost:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.military .btn--danger {
+  border-color: #cc2200;
+  color: #cc2200;
+  background: #fff;
+  box-shadow: none;
+}
+
+.military .btn--danger:hover {
+  background: #fff0ee;
 }
 
 .delete-confirm-label {
@@ -1206,77 +1248,6 @@ button:disabled {
   align-items: center;
   opacity: 0.8;
   flex-shrink: 0;
-}
-
-.delete-btn {
-  font-size: 12px;
-  padding: 3px 8px;
-  border: 1px solid rgba(255, 107, 53, 0.5);
-  color: #ff6b35;
-  background: rgba(255, 107, 53, 0.23);
-  border-radius: 2px;
-  letter-spacing: 0.1em;
-  height: 2.3rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: var(--font-jet), var(--font-tech), Helvetica;
-  box-shadow: 0 0 15px -0.05px rgba(255, 107, 53, 0.3);
-  transition: all 0.15s;
-}
-
-.delete-btn:hover {
-  background: rgba(255, 107, 53, 0.3);
-}
-
-.cancel-btn {
-  font-size: 12px;
-  padding: 3px 8px;
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-  background: transparent;
-  border-radius: 2px;
-  letter-spacing: 0.1em;
-  height: 2.3rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: var(--font-jet), var(--font-tech), Helvetica;
-  transition: all 0.15s;
-}
-
-.cancel-btn:hover {
-  background: var(--surface2);
-  color: var(--text);
-}
-
-.military .delete-btn {
-  border: 1px solid #cc2200;
-  color: #cc2200;
-  background: #fff;
-  box-shadow: none;
-}
-
-.military .delete-btn:hover {
-  background: #fff0ee;
-}
-
-#cancelBtn {
-  font-size: 12px;
-  padding: 3px 8px;
-  border: 1px solid var(--border2);
-  color: var(--primary);
-  background: var(--surface);
-  border-radius: 2px;
-  letter-spacing: 0.1em;
-  width: 15%;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: var(--font-jet), var(--font-tech), Helvetica;
-  box-shadow: 0 0 15px -0.05px var(--glow);
-  transition: all 0.15s;
-}
-
-#cancelBtn:hover {
-  background: var(--surface2);
 }
 
 /* ════════════════════════════════

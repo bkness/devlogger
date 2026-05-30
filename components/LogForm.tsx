@@ -287,22 +287,22 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
             {confirmDelete ? (
               <>
                 <span className="delete-confirm-label">{"// delete?"}</span>
-                <button type="button" className="delete-btn flex-1 p-2" onClick={handleDelete} disabled={isDeleting}>
+                <button type="button" className="btn btn--danger flex-1 p-2" onClick={handleDelete} disabled={isDeleting}>
                   {isDeleting ? "..." : "Yes, delete"}
                 </button>
-                <button type="button" id="cancelBtn" onClick={() => setConfirmDelete(false)}>
+                <button type="button" id="cancelBtn" className="btn btn--ghost flex-1 p-2" onClick={() => setConfirmDelete(false)}>
                   Cancel
                 </button>
               </>
             ) : (
               <>
-                <button type="button" id="editBtn" className="update-btn flex-1 p-2" onClick={handleEditClick}>
+                <button type="button" id="editBtn" className="btn btn--primary flex-1 p-2" onClick={handleEditClick}>
                   Edit
                 </button>
-                <button type="button" id="deleteBtn" className="delete-btn flex-1 p-2" onClick={() => setConfirmDelete(true)}>
+                <button type="button" id="deleteBtn" className="btn btn--danger flex-1 p-2" onClick={() => setConfirmDelete(true)}>
                   Delete
                 </button>
-                <button type="button" id="cancelBtn" className="cancel-btn flex-1 p-2" onClick={onDetailClear}>
+                <button type="button" id="cancelBtn" className="btn btn--ghost flex-1 p-2" onClick={onDetailClear}>
                   Cancel
                 </button>
               </>
@@ -315,19 +315,19 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
             {confirmDiscard ? (
               <>
                 <span className="delete-confirm-label">{"// discard changes?"}</span>
-                <button type="button" className="delete-btn flex-1 p-2" onClick={handleConfirmDiscard}>
+                <button type="button" className="btn btn--danger flex-1 p-2" onClick={handleConfirmDiscard}>
                   Yes, discard
                 </button>
-                <button type="button" className="cancel-btn" onClick={() => setConfirmDiscard(false)}>
+                <button type="button" className="btn btn--ghost" onClick={() => setConfirmDiscard(false)}>
                   Cancel
                 </button>
               </>
             ) : (
               <>
-                <button type="button" id="saveBtn" className="update-btn flex-1 p-2" onClick={handleSave} disabled={isSaving}>
+                <button type="button" id="saveBtn" className="btn btn--primary flex-1 p-2" onClick={handleSave} disabled={isSaving}>
                   {isSaving ? "..." : "Save"}
                 </button>
-                <button type="button" id="cancelEditBtn" className="cancel-btn flex-1 p-2"
+                <button type="button" id="cancelEditBtn" className="btn btn--ghost flex-1 p-2"
                   onClick={handleCancelEdit}>
                   Cancel
                 </button>
