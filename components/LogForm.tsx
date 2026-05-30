@@ -25,6 +25,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
   const [editContent, setEditContent] = useState("");
   const [editTags, setEditTags] = useState<string[]>([]);
   const [editTagInput, setEditTagInput] = useState("");
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   async function handleCreate(e: React.FormEvent) {
@@ -55,9 +56,9 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     e.preventDefault();
     const val = inputValue.trim().toLowerCase().replace(/,/g, "");
     if (!val || current.includes(val) || current.length >= 5 || val.length > 20) {
-      return handleToast(!val ? "Tag cannot be empty" : current.includes(val) ? "Tag already added" : current.length >= 5 ? "Maximum 5 tags allowed" : "Tag must be under 20 characters", 
-      "error", 
-      "Invalid tag");
+      return handleToast(!val ? "Tag cannot be empty" : current.includes(val) ? "Tag already added" : current.length >= 5 ? "Maximum 5 tags allowed" : "Tag must be under 20 characters",
+        "error",
+        "Invalid tag");
     }
     setter([...current, val]);
     inputSetter("");
@@ -98,13 +99,30 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
     }
   }
 
+  const isDirty = !!detailLog && (
+    editTitle !== detailLog.title ||
+    editContent !== detailLog.content ||
+    JSON.stringify(editTags) !== JSON.stringify(detailLog.tags ?? [])
+  );
+
   function handleCancelEdit() {
+    if (isDirty) {
+      setConfirmDiscard(true);
+      return;
+    }
     setIsEditing(false);
     handleToast("Edit cancelled", "warn", "Cancelled");
   }
 
+  function handleConfirmDiscard() {
+    setConfirmDiscard(false);
+    setIsEditing(false);
+    handleToast("Changes discarded", "warn", "Discarded");
+  }
+
   useEffect(() => {
     setConfirmDelete(false);
+    setConfirmDiscard(false);
     setIsEditing(false);
   }, [detailLog?.id]);
 
@@ -132,7 +150,7 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
               onChange={(e) => setContent(e.target.value)}
               className="panel-field p-2 rounded w-full"
             />
-              <div className={`char-counter ${content.length > CONTENT_MAX ? "over" : ""}`}>{content.length}/{CONTENT_MAX}</div>
+            <div className={`char-counter ${content.length > CONTENT_MAX ? "over" : ""}`}>{content.length}/{CONTENT_MAX}</div>
             <div className="flex flex-wrap gap-2 items-center">
               {tags.map(tag => (
                 <span key={tag} className="tag-chip">
@@ -269,12 +287,27 @@ export default function LogForm({ selectedLog, onClear, detailLog, onDetailClear
 
         {detailLog && isEditing && (
           <div key={`edit-actions-${detailLog.id}`} className="detail-actions flex gap-2 mb-1 p-2">
-            <button type="button" id="saveBtn" className="update-btn flex-1 p-2" onClick={handleSave}>
-              Save
-            </button>
-            <button type="button" id="cancelEditBtn" className="cancel-btn flex-1 p-2" onClick={handleCancelEdit}>
-              Cancel
-            </button>
+            {confirmDiscard ? (
+              <>
+                <span className="delete-confirm-label">{"// discard changes?"}</span>
+                <button type="button" className="delete-btn flex-1 p-2" onClick={handleConfirmDiscard}>
+                  Yes, discard
+                </button>
+                <button type="button" className="cancel-btn" onClick={() => setConfirmDiscard(false)}>
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <>
+                <button type="button" id="saveBtn" className="update-btn flex-1 p-2" onClick={handleSave}>
+                  Save
+                </button>
+                <button type="button" id="cancelEditBtn" className="cancel-btn flex-1 p-2"
+                  onClick={handleCancelEdit}>
+                  Cancel
+                </button>
+              </>
+            )}
           </div>
         )}
 
