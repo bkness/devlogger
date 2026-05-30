@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Log, ToastTheme, AppThemeType, NavTheme } from "@/lib/types";
 import { Navbar } from "./Navbar";
 import LogDashboard from "./LogDashboard";
@@ -49,6 +49,16 @@ export default function DashboardShell({ logs, initialSettings, userName }: Dash
     const setToastTheme = (toastTheme: ToastTheme)  => setSettings(s => ({ ...s, toastTheme }));
     const [view, setView] = useState<View>("logs");
     const [activeTag, setActiveTag] = useState<string | null>(null);
+    const [query, setQuery] = useState("");
+
+    const filteredLogs = useMemo(() => {
+        const q = query.trim().toLowerCase();
+        if (!q) return logs;
+        return logs.filter(log =>
+            log.title.toLowerCase().includes(q) ||
+            log.content.toLowerCase().includes(q)
+        );
+    }, [logs, query]);
 
     function handleTagClick(tag: string) {
         setView("tags");
@@ -84,7 +94,7 @@ export default function DashboardShell({ logs, initialSettings, userName }: Dash
                 currentView={view}
                 onViewChange={setView}
             />
-            {view === "logs" && <LogDashboard logs={logs} toastTheme={toastTheme} appTheme={appTheme} onTagClick={handleTagClick} />}
+            {view === "logs" && <LogDashboard logs={filteredLogs} query={query} setQuery={setQuery} toastTheme={toastTheme} appTheme={appTheme} onTagClick={handleTagClick} />}
             {view === "stats" && <StatsView logs={logs} />}
             {view === "tags" && <TagsView logs={logs} activeTag={activeTag} setActiveTag={setActiveTag} />}
         </>
