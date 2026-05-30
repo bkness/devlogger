@@ -49,6 +49,18 @@ function getTopTags(logs: Log[]): { tag: string; count: number }[] {
 }
 
 export default function StatsView({ logs }: Props) {
+    if (logs.length === 0) {
+        return (
+            <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">
+                <p className="panel-label" style={{ fontSize: "1rem" }}>
+                    {"// no data yet"}
+                </p>
+                <p className="preview-empty" style={{ fontSize: "0.9rem" }}>
+                    Create your first log to see stats
+                </p>
+            </div>
+        );
+    }
     const now = new Date();
     const startOfWeek = new Date(now);
     startOfWeek.setDate(now.getDate() - now.getDay());
