@@ -11,23 +11,23 @@ interface ToastProps {
 
 const titleByType: Record<ToastType, string> = {
     success: "Log saved",
-    error:   "Failed to save",
-    warn:    "Validation",
-    info:    "Log updated",
+    error: "Failed to save",
+    warn: "Validation",
+    info: "Log updated",
 };
 
 const codeByType: Record<ToastType, string> = {
     success: "200",
-    error:   "500",
-    warn:    "400",
-    info:    "200",
+    error: "500",
+    warn: "400",
+    info: "200",
 };
 
 // [outerClass, typePrefix]
 const classMap: Record<AppThemeType, Record<ToastTheme, [string, string]>> = {
-    cyber:    { A: ["cyber-a",    "ca"],  B: ["cyber-b",    "cb"],  C: ["cyber-c",    "cc"]  },
-    terminal: { A: ["terminal-a", "ta"],  B: ["terminal-b", "tb2"], C: ["terminal-c", "tc2"] },
-    military: { A: ["military-a", "ma"],  B: ["military-b", "mb"],  C: ["military-c", "mc"]  },
+    cyber: { A: ["cyber-a", "ca"], B: ["cyber-b", "cb"], C: ["cyber-c", "cc"] },
+    terminal: { A: ["terminal-a", "ta"], B: ["terminal-b", "tb2"], C: ["terminal-c", "tc2"] },
+    military: { A: ["military-a", "ma"], B: ["military-b", "mb"], C: ["military-c", "mc"] },
 };
 
 export function Toast({ message, type, title, theme = "A", appTheme = "cyber", onDismiss }: ToastProps) {
