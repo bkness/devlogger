@@ -17,7 +17,7 @@ export default async function Home() {
     ]);
 
     return (
-        <main id="mainContent" className="max-w-10xl mx-auto p-8">
+        <main>
             <DashboardShell logs={logs} initialSettings={user?.settings ?? {}} userName={user?.name ?? ""} />
         </main>
     );
