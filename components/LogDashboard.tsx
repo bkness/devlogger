@@ -89,7 +89,7 @@ export default function LogDashboard({ logs, query, setQuery, sortBy, setSortBy,
           <option value="alpha">A-Z</option>
         </select>
       </div>
-    
+
       <LogForm
         selectedLog={selectedLog}
         onClear={() => setSelectedLog(null)}
@@ -97,37 +97,37 @@ export default function LogDashboard({ logs, query, setQuery, sortBy, setSortBy,
         onDetailClear={() => setDetailLog(null)}
         handleToast={handleToast}
       />
-  {
-    message && toastType && (
-      <Toast key={toastKey} message={message} type={toastType} title={toastTitle} theme={toastTheme} appTheme={appTheme} onDismiss={dismissToast} />
-    )
-  }
-  {
-    logs.length === 0 ? (
-      <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">
-        <p className="panel-label" style={{ fontSize: "1rem" }}>
-          {query.trim() ? `// no logs match "${query}"` : "// no logs found"}
-        </p>
-        <p className="preview-empty" style={{ fontSize: "0.9rem" }}>
-          {query.trim() ? "try a different keyword" : "start typing above to create your first entry"}
-        </p>
-      </div>
-    ) : (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 mt-8 items-start">
-      {logs.map((log) => (
-        <LogCard
-          key={log.id}
-          log={log}
-          previewing={selectedLog?.id === log.id}
-          detailing={detailLog?.id === log.id}
-          onPreview={setSelectedLog}
-          onDetail={handleDetail}
-          onTagClick={onTagClick}
-        />
-      ))}
-    </ul>
-  )
-  }
+      {
+        message && toastType && (
+          <Toast key={toastKey} message={message} type={toastType} title={toastTitle} theme={toastTheme} appTheme={appTheme} onDismiss={dismissToast} />
+        )
+      }
+      {
+        logs.length === 0 ? (
+          <div className="mt-8 flex flex-col items-center justify-center gap-2 py-20">
+            <p className="panel-label" style={{ fontSize: "1rem" }}>
+              {query.trim() ? `// no logs match "${query}"` : "// no logs found"}
+            </p>
+            <p className="preview-empty" style={{ fontSize: "0.9rem" }}>
+              {query.trim() ? "try a different keyword" : "start typing above to create your first entry"}
+            </p>
+          </div>
+        ) : (
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 mt-8 items-start">
+            {logs.map((log) => (
+              <LogCard
+                key={log.id}
+                log={log}
+                previewing={selectedLog?.id === log.id}
+                detailing={detailLog?.id === log.id}
+                onPreview={setSelectedLog}
+                onDetail={handleDetail}
+                onTagClick={onTagClick}
+              />
+            ))}
+          </ul>
+        )
+      }
     </>
   );
 }

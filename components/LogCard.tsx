@@ -28,7 +28,7 @@ export default function LogCard({ log, previewing, detailing, onPreview, onDetai
         <div className="log-card-tags">
           {(log.tags ?? []).map(tag => (
             <button
-            type="button"
+              type="button"
               key={tag}
               className="tag-chip"
               onClick={(e) => { e.stopPropagation(); onTagClick?.(tag); }}
