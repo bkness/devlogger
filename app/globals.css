@@ -3090,6 +3090,12 @@ button:disabled {
   fill: #1a4d2a;
 }
 
+.military .mobile-nav-menu,
+.military .settings-panel {
+  background: var(--surface2);
+  border-left: 2px solid var(--primary);
+}
+
 /* ════════════════════════════════
     HACK FOR AUTOFILL 
 ════════════════════════════════ */
@@ -3108,6 +3114,13 @@ button:disabled {
   .mobile-nav { display: none; }
 
   @media (max-width: 768px) {
+      .panel-field,
+      .tag-input,
+      .search-input,
+      .sort-select {
+        font-size: 16px;
+      }
+
       .nav, .nav-b, .nav-c { display: none; }
       .mobile-nav { 
         display: flex;
@@ -3228,4 +3241,31 @@ button:disabled {
         padding: 12px;
         border-radius: 4px;
      }
+
+     .toast {
+        min-width: 0;
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        max-width: none;
+     }
+
+       @media (max-width: 640px) {
+    .search-bar {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 0 1rem;
+    }
+    .sort-select {
+      width: 100%;
+    }
+    .stats-chart {
+      padding: 12px 8px 8px;
+      gap: 2px;
+    }
+    .chart-label {
+      font-size: 0.55rem;
+      letter-spacing: -0.02em;
+    }
+  }
   }
