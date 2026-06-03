@@ -3113,6 +3113,14 @@ button:disabled {
 
   .mobile-nav { display: none; }
 
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .nav-stat,
+    .nav-time,
+    .nav-divider {
+      display: none;
+    }
+  }
+
   @media (max-width: 768px) {
       .panel-field,
       .tag-input,
