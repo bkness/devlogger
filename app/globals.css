@@ -3050,6 +3050,30 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* Demo sign-in: secondary to the real login, so outline-only */
+.login-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--btn-border);
+}
+
+.login-demo-btn {
+  width: 100%;
+  margin-top: 0;
+  background: transparent;
+}
+
+.login-demo-note {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  text-align: center;
+  user-select: all;
+}
+
 /* ── Idle panel watermark SVG ───────────────────────── */
 .idle-hex-outer {
   stroke: var(--primary);
