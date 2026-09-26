@@ -10,15 +10,15 @@
     "seed": "tsx --env-file=.env prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.8.0",
-    "@prisma/client": "^7.8.0",
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/pg": "^8.20.0",
     "bcryptjs": "^3.0.3",
-    "next": "16.2.6",
+    "next": "16.3.6",
     "next-auth": "^5.0.0-beta.31",
     "pg": "^8.21.0",
-    "prisma": "^7.8.0",
+    "prisma": "^7.10.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -29,9 +29,13 @@
     "@types/react-dom": "^19",
     "dotenv": "^17.4.2",
     "eslint": "^9",
-    "eslint-config-next": "16.2.6",
+    "eslint-config-next": "16.3.6",
     "tailwindcss": "^4",
     "tsx": "^4.22.3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "deepmerge-ts": "^8.0.2",
+    "mysql2": "^3.24.4"
   }
 }
