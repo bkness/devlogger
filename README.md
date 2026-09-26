@@ -4,6 +4,8 @@
 
 A full-stack developer logging app for capturing notes, progress, and breakthroughs as you build. Authenticated per-user logs, a tag system, weekly stats, and a layered theme engine — built issue-by-issue as a learning project.
 
+**Live demo:** [devlogger.onrender.com](https://devlogger.onrender.com) — click **Register** to create an account (free hosting, so the first load can take ~50s to wake up).
+
 ---
 
 ## At a glance
