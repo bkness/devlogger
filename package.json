@@ -15,6 +15,8 @@
     "@prisma/client": "^7.10.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/pg": "^8.20.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "bcryptjs": "^3.0.3",
     "next": "16.3.6",
     "next-auth": "^5.0.0-beta.31",
@@ -25,7 +27,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^22.20.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "dotenv": "^17.4.2",
